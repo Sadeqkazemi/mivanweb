@@ -97,7 +97,7 @@ h1, h2, h3, .font-display {
   animation: floaty 4s ease-in-out infinite;
 }
 
-/* Canonical STYLE_GUIDE tokens. Desktop dimensions use the documented 1.56 scale. */
+/* Shared design tokens with bounded, responsive desktop dimensions. */
 :root {
   --panel-dark: #17110b; --footer: #15100b; --surface-warm: #fffaf2; --surface-alert: #fff5e6; --tint: #f4ede2;
   --accent-deep: #e03a05; --accent-mid: #f2530f; --error: #c53a06;
@@ -110,11 +110,11 @@ h1, h2, h3, .font-display {
   --shadow-nav: 0 16px 40px -28px rgba(29,22,15,.5); --shadow-card: 0 40px 70px -56px rgba(29,22,15,.55);
   --shadow-form: 0 40px 70px -60px rgba(29,22,15,.5); --shadow-button: 0 14px 30px -16px rgba(239,79,14,.9);
   --shadow-modal: 0 50px 100px -40px rgba(21,16,11,.7); --focus-ring: 0 0 0 3px rgba(239,79,14,.12);
-  --content-width: 1597.44px; --section-space: clamp(37.44px, 4vw, 74.88px);
-  --page-title: clamp(46.8px, 7vw, 90.48px); --document-title: clamp(49.92px, 7.4vw, 99.84px);
-  --section-title: clamp(29.17px, 3.6vw, 45.24px); --panel-title: clamp(25.58px, 2.8vw, 32.76px);
-  --lead-size: clamp(19.03px, 1.9vw, 23.56px); --document-size: 19.34px; --card-size: 17.47px; --ui-size: 17.16px;
-  --radius-card: 39px; --radius-panel: 49.92px; --radius-banner: 59.28px; --radius-input: 20.28px;
+  --content-width: 1280px; --section-space: clamp(37.44px, 4vw, 74.88px);
+  --page-title: clamp(40px, 5vw, 68px); --document-title: clamp(42px, 5.5vw, 72px);
+  --section-title: clamp(28px, 3vw, 36px); --panel-title: clamp(24px, 2.5vw, 28px);
+  --lead-size: clamp(17px, 1.6vw, 20px); --document-size: 16px; --card-size: 15px; --ui-size: 15px;
+  --radius-card: 28px; --radius-panel: 36px; --radius-banner: 40px; --radius-input: 16px;
   --stripe: repeating-linear-gradient(45deg,#f3ede2,#f3ede2 17.16px,#faf5ec 17.16px,#faf5ec 34.32px);
   --stripe-dark: repeating-linear-gradient(45deg,#241b12,#241b12 17.16px,#2c2118 17.16px,#2c2118 34.32px);
 }
