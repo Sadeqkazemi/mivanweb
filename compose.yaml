@@ -1,0 +1,58 @@
+name: mivan
+services:
+  db:
+    image: postgres:17-bookworm
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: mivan
+      POSTGRES_DB: mivan
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD}
+    volumes:
+      - database:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mivan -d mivan"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  migrate:
+    image: mivan-web:${RELEASE_TAG:-local}
+    build: .
+    command: ["npm", "run", "db:migrate"]
+    environment:
+      DATABASE_URL: postgresql://mivan:${POSTGRES_PASSWORD}@db:5432/mivan
+    depends_on:
+      db:
+        condition: service_healthy
+  web:
+    image: mivan-web:${RELEASE_TAG:-local}
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgresql://mivan:${POSTGRES_PASSWORD}@db:5432/mivan
+      BETTER_AUTH_URL: https://www.mivanfood.com
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET}
+      HOSTNAME: 0.0.0.0
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/login').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+  proxy:
+    image: caddy:2
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web:
+        condition: service_healthy
+volumes:
+  database:
+  caddy_data:
+  caddy_config:
