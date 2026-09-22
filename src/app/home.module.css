@@ -187,3 +187,19 @@
 @media(max-width:380px) { .nav .authActions .button { font-size:11px; } }
 
 @media(min-width:751px) { .hero h1 { max-width:1060px; }.hero h1 span { white-space:nowrap; }.heroActions { margin-top:30px; }.heroVisual { margin-top:48px; }.why { padding:40px; }.stats { margin-top:36px; } }
+
+/* Compact desktop rhythm: the original mockup scale made cards dominate wide screens. */
+@media(min-width:751px) {
+  .nav { min-height:58px; padding-block:6px; }
+  .brand img { width:82px; height:39px; }
+  .hero { padding-top:38px; }
+  .hero h1 { max-width:900px; font-size:clamp(46px,5vw,72px); }
+  .heroCopy { margin-top:24px; }
+  .section { margin-top:52px; }
+  .heroVisual { height:340px; }
+  .why { padding:34px; }
+  .watch { min-height:380px; padding:44px; }
+  .plan { min-height:310px; padding:24px; }
+  .plan ul { margin-top:20px; margin-bottom:24px; }
+  .cta { padding:58px 24px; margin-bottom:72px; }
+}

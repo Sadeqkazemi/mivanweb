@@ -22,3 +22,4 @@
  .screen { justify-self: center; height: 380px; }.cta { padding-block: 52px; margin-top: 72px; margin-bottom: 72px; }
 }
 .hero h1 { font-size:var(--page-title); line-height:.94; max-width:1100px; }.intro { font-size:var(--lead-size); line-height:1.55; max-width:44ch; }.copy h2 { font-size:var(--section-title); }.body { font-size:var(--card-size); max-width:64ch; }
+@media(min-width:701px) { .hero { padding-top:38px; }.intro { margin-top:28px; }.blocks { margin-top:56px; gap:64px; }.block { min-height:340px; column-gap:52px; }.screen { height:340px; }.cta { margin-top:72px; margin-bottom:72px; padding-block:56px; } }
