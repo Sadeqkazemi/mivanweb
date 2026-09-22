@@ -18,3 +18,4 @@
  .team { grid-template-columns: repeat(2,1fr); gap: 12px; }.photo { height: 180px; }.memberCopy { padding: 14px 12px; }.memberCopy p { font-size: 12px; }
 }
 .title { font-size:var(--section-title); }.value { border-radius:var(--radius-card); }.value p { font-size:var(--card-size); }
+@media(min-width:701px) { .mission { margin-top:64px; }.section { margin-top:56px; }.heading { margin-bottom:38px; }.photo { height:180px; } }

@@ -110,9 +110,9 @@ h1, h2, h3, .font-display {
   --shadow-nav: 0 16px 40px -28px rgba(29,22,15,.5); --shadow-card: 0 40px 70px -56px rgba(29,22,15,.55);
   --shadow-form: 0 40px 70px -60px rgba(29,22,15,.5); --shadow-button: 0 14px 30px -16px rgba(239,79,14,.9);
   --shadow-modal: 0 50px 100px -40px rgba(21,16,11,.7); --focus-ring: 0 0 0 3px rgba(239,79,14,.12);
-  --content-width: 1280px; --section-space: clamp(37.44px, 4vw, 74.88px);
-  --page-title: clamp(40px, 5vw, 68px); --document-title: clamp(42px, 5.5vw, 72px);
-  --section-title: clamp(28px, 3vw, 36px); --panel-title: clamp(24px, 2.5vw, 28px);
+  --content-width: 1040px; --section-space: clamp(30px, 3vw, 48px);
+  --page-title: clamp(38px, 4.5vw, 60px); --document-title: clamp(40px, 5vw, 64px);
+  --section-title: clamp(26px, 2.7vw, 34px); --panel-title: clamp(22px, 2.2vw, 27px);
   --lead-size: clamp(17px, 1.6vw, 20px); --document-size: 16px; --card-size: 15px; --ui-size: 15px;
   --radius-card: 28px; --radius-panel: 36px; --radius-banner: 40px; --radius-input: 16px;
   --stripe: repeating-linear-gradient(45deg,#f3ede2,#f3ede2 17.16px,#faf5ec 17.16px,#faf5ec 34.32px);
