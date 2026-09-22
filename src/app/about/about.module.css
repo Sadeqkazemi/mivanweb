@@ -1,0 +1,20 @@
+.intro { max-width: 620px; }
+.mission { margin-top: 96px; }
+.title { font-size: 40px; line-height: 1.08; font-weight: 700; letter-spacing: -.035em; }
+.section { margin-top: 80px; }
+.heading { text-align: center; margin-bottom: 56px; }
+.value { background: white; border: 1px solid var(--border-card); border-radius: 32px; padding: 28px; }
+.value h3 { font: 700 18px/1.3 "Albert Sans", sans-serif; margin-bottom: 12px; }
+.value p { font-size: 14px; line-height: 1.6; color: var(--body-text); }
+.team { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+.member { background: white; border: 1px solid var(--border-card); border-radius: 30px; overflow: hidden; }
+.photo { height: 220px; border-radius: 30px; border: 1px solid #e3dfd6; position: relative; }
+.photo span { position: absolute; bottom: 14px; left: 14px; background: white; color: #989084; border-radius: 20px; padding: 4px 9px; font: 12px/1.4 ui-monospace,monospace; }
+.memberCopy { padding: 16px 18px; }
+.memberCopy h3 { font: 700 14px/1.4 "Albert Sans",sans-serif; }
+.memberCopy p { font-size: 13px; color: #9c9488; }
+@media(max-width:700px) {
+ .mission { margin-top: 64px; }.title { font-size: 32px; }.section { margin-top: 60px; }.heading { margin-bottom: 32px; }
+ .team { grid-template-columns: repeat(2,1fr); gap: 12px; }.photo { height: 180px; }.memberCopy { padding: 14px 12px; }.memberCopy p { font-size: 12px; }
+}
+.title { font-size:var(--section-title); }.value { border-radius:var(--radius-card); }.value p { font-size:var(--card-size); }

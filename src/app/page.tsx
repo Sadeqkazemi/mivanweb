@@ -1,8 +1,8 @@
-import { PublicNav } from "@/components/PublicNav";
+import { NavAuthActions } from "@/components/NavAuthActions";
+import Image from "next/image";
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { Section, Eyebrow, H2, Card } from "@/components/Section";
-import { GradientPill, OutlinePill, GoogleG } from "@/components/Buttons";
-import { ImageSlot } from "@/components/ImageSlot";
+import styles from "./home.module.css";
 
 const stats = [
   { value: "120+", label: "Cities covered" },
@@ -94,259 +94,103 @@ const plans = [
   },
 ];
 
+const navLinks = [
+  ["/features", "Features"], ["#how-it-works", "How it works"],
+  ["#pricing", "Pricing"], ["/about", "About"], ["/blog", "Blog"],
+];
+
+function GoogleIcon() {
+  return <span className={styles.google} aria-hidden="true">G</span>;
+}
+
 export default function Home() {
   return (
-    <>
-      <PublicNav />
-      <main>
-        {/* HERO */}
-        <Section className="text-center pt-[clamp(40px,8vw,72px)]">
-          <h1 className="font-display font-extrabold text-[clamp(33.1px,9vw,77.8px)] leading-[0.92] tracking-[-0.04em] max-w-3xl mx-auto">
-            Eat what truly <span className="grad-word">fits you</span>, anywhere.
-          </h1>
-          <p className="text-body-text text-[clamp(12.2px,1.9vw,15.1px)] leading-relaxed max-w-xl mx-auto mt-5">
-            Mivan learns your taste and health, reads your stress and activity from your
-            Apple Watch, and tells you the right thing to eat — at home, traveling, or from
-            a photo of any menu.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 mt-7">
-            <GradientPill>
-              <GoogleG /> Continue with Google
-            </GradientPill>
-            <OutlinePill href="/how-it-works">See how it works</OutlinePill>
+    <div className={styles.landing}>
+      <header className={`${styles.container} ${styles.nav}`}>
+        <Link href="/" className={styles.brand} aria-label="Mivan home">
+          <Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority />
+        </Link>
+        <nav aria-label="Main navigation" className={styles.navLinks}>
+          {navLinks.map(([href, label]) => <Link href={href} key={label}>{label}</Link>)}
+        </nav>
+        <NavAuthActions />
+        <details className={styles.mobileMenu}>
+          <summary aria-label="Toggle navigation">☰</summary>
+          <nav aria-label="Mobile navigation">
+            {navLinks.map(([href, label]) => <Link href={href} key={label}>{label}</Link>)}
+          </nav>
+        </details>
+      </header>
+      <main className={styles.container}>
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <h1 id="hero-title">Eat what truly <span>fits you</span>,<br />anywhere.</h1>
+          <p className={styles.heroCopy}>Mivan learns your taste and health, reads your stress and activity from your Apple Watch, and tells you the right thing to eat — at home, traveling, or from a photo of any menu.</p>
+          <div className={styles.heroActions}>
+            <Link href="/login" className={`${styles.button} ${styles.primary}`}><GoogleIcon />Continue with Google</Link>
+            <a href="#how-it-works" className={`${styles.button} ${styles.outline}`}>See how it works</a>
           </div>
-
-          <div className="relative mt-12 max-w-3xl mx-auto">
-            <ImageSlot className="h-[280px] md:h-[420px] rounded-[34px]" label="hero photo" />
-            <Card className="absolute -left-2 md:left-4 bottom-6 w-[190px] animate-floaty hidden sm:block">
-              <div className="flex items-center gap-2">
-                <div className="btn-gradient w-9 h-9 rounded-lg shrink-0" />
-                <div className="text-left">
-                  <div className="text-[11px] font-bold leading-tight">Miso magnesium bowl</div>
-                  <div className="text-[10px] text-muted">91% match · calms stress</div>
-                </div>
-              </div>
-            </Card>
-            <Card className="absolute -right-2 md:right-4 top-6 w-fit animate-floaty hidden sm:block">
-              <div className="flex items-center gap-2 text-[11px] font-bold">
-                <span className="w-2 h-2 rounded-full bg-accent" />
-                Watch live · stress 78
-              </div>
-            </Card>
+          <div className={styles.heroVisual} aria-label="Preview of personalized meal recommendations">
+            <div className={styles.watchBadge}><i aria-hidden="true" />Watch live · stress 78</div>
+            <div className={styles.mealBadge}><i aria-hidden="true" /><div><strong>Miso magnesium bowl</strong><br /><span>91% match · calms stress</span></div></div>
           </div>
+          <div className={styles.brands}><span>Works with every smartwatch</span><span>Apple Watch</span><span>Wear OS</span><span>Fitbit</span><span>Garmin</span></div>
+        </section>
 
-          <div className="mt-14">
-            <div className="text-muted-2 text-[10px] font-semibold uppercase tracking-widest mb-4">
-              Works with every smartwatch
-            </div>
-            <div className="flex flex-wrap justify-center gap-6 text-label text-[12px] font-semibold">
-              <span>Apple Watch</span>
-              <span>Wear OS</span>
-              <span>Fitbit</span>
-              <span>Garmin</span>
+        <section className={`${styles.section} ${styles.why}`} aria-labelledby="why-title">
+          <div className={styles.whyIntro}>
+            <div><p className={styles.eyebrow}>Why Mivan</p><h2 id="why-title" className={styles.title}>Millions travel, and can’t find food that fits them.</h2></div>
+            <div className={styles.whyCopy}>
+              <p>Every year millions of people travel for work and leisure — and struggle to find food that suits their taste, diet, and health in an unfamiliar place. Meanwhile, modern life loads our days with stress and pressure that quietly shape what our bodies actually need.</p>
+              <p>Mivan was built to close that gap. We learn your palate, understand your conditions and diet, read your day through your smartwatch, and recommend the right meal for your exact location and moment — even from a photo of a menu you’ve never seen.</p>
             </div>
           </div>
-        </Section>
+          <div className={styles.stats}>{stats.map(s => <div className={styles.stat} key={s.label}><strong>{s.value}</strong><span>{s.label}</span></div>)}</div>
+        </section>
 
-        {/* WHY MIVAN */}
-        <Section className="text-center">
-          <Eyebrow>Why Mivan</Eyebrow>
-          <H2>Millions travel, and can&rsquo;t find food that fits them.</H2>
-          <p className="text-body-text text-[13px] leading-relaxed max-w-2xl mx-auto">
-            Every year millions of people travel for work and leisure — and struggle to find
-            food that suits their taste, diet, and health in an unfamiliar place. Meanwhile,
-            modern life loads our days with stress and pressure that quietly shape what our
-            bodies actually need.
-          </p>
-          <p className="text-body-text text-[13px] leading-relaxed max-w-2xl mx-auto mt-3">
-            Mivan was built to close that gap. We learn your palate, understand your
-            conditions and diet, read your day through your smartwatch, and recommend the
-            right meal for your exact location and moment — even from a photo of a menu
-            you&rsquo;ve never seen.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <div className="font-display font-extrabold text-2xl text-accent-text">
-                  {s.value}
-                </div>
-                <div className="text-muted text-[11px] mt-1">{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </Section>
+        <section id="how-it-works" className={styles.section} aria-labelledby="steps-title">
+          <div className={styles.sectionHeading}><p className={styles.eyebrow}>How it works</p><h2 id="steps-title" className={styles.title}>Three steps to the right meal.</h2></div>
+          <div className={styles.threeGrid}>{steps.map(s => <article className={styles.step} key={s.n}><div className={styles.stepNumber}>{s.n}</div><h3>{s.title}</h3><p>{s.body}</p></article>)}</div>
+        </section>
 
-        {/* HOW IT WORKS */}
-        <Section className="text-center">
-          <Eyebrow>How it works</Eyebrow>
-          <H2>Three steps to the right meal.</H2>
-          <div className="grid md:grid-cols-3 gap-5 mt-8 text-left">
-            {steps.map((s) => (
-              <Card key={s.n}>
-                <div className="btn-gradient w-8 h-8 rounded-full text-white text-[13px] font-bold flex items-center justify-center mb-3">
-                  {s.n}
-                </div>
-                <div className="font-bold text-[13px] mb-1.5">{s.title}</div>
-                <div className="text-muted text-[12px] leading-relaxed">{s.body}</div>
-              </Card>
-            ))}
+        <section className={`${styles.section} ${styles.scan}`} aria-labelledby="scan-title">
+          <div className={styles.scanCopy}><p className={styles.eyebrow}>Menu scan</p><h2 id="scan-title" className={styles.title}>Snap any menu.<br />Know what fits you.</h2><p>Point your camera at a restaurant menu. Mivan reads every dish and ranks it against your diet, conditions and taste — so you order with confidence in any city.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}>Try it free</Link></div>
+          <div className={styles.menu}><div className={styles.menuHeader}><h3>Saffron House — menu</h3><span>12 SCANNED</span></div>
+            {menuScan.map((m, i) => <div className={styles.menuRow} key={m.name}><div><strong>{m.name}</strong><p>{m.tag}</p></div><span className={`${styles.score} ${i === 2 ? styles.medium : i === 3 ? styles.low : ""}`}>{m.score}</span></div>)}
           </div>
-        </Section>
+        </section>
 
-        {/* MENU SCAN */}
-        <Section>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <Eyebrow>Menu scan</Eyebrow>
-              <H2>Snap any menu. Know what fits you.</H2>
-              <p className="text-body-text text-[13px] leading-relaxed mb-5">
-                Point your camera at a restaurant menu. Mivan reads every dish and ranks it
-                against your diet, conditions and taste — so you order with confidence in
-                any city.
-              </p>
-              <GradientPill>Try it free</GradientPill>
-            </div>
-            <Card>
-              <div className="flex items-center justify-between mb-3">
-                <span className="font-bold text-[12px]">Saffron House — menu</span>
-                <span className="text-[10px] text-muted font-semibold">12 SCANNED</span>
-              </div>
-              <div className="flex flex-col gap-2.5">
-                {menuScan.map((m) => (
-                  <div
-                    key={m.name}
-                    className="flex items-center justify-between border-b border-[var(--hairline)] pb-2 last:border-0"
-                  >
-                    <div>
-                      <div className="text-[12px] font-semibold">{m.name}</div>
-                      <div className="text-[10.5px] text-muted">{m.tag}</div>
-                    </div>
-                    <span className="text-[12px] font-bold text-accent-text">{m.score}</span>
-                  </div>
-                ))}
-              </div>
-            </Card>
+        <section className={`${styles.section} ${styles.watch}`} aria-labelledby="watch-title">
+          <div className={styles.watchCopy}><p className={styles.eyebrow}>Apple Watch</p><h2 id="watch-title" className={styles.title}>Hard day? We notice<br />— and help you<br />recover.</h2><p>When your watch shows rising stress or a heavy workload, Mivan suggests food and drinks that help you bounce back — right for your body in that moment.</p><div className={styles.watchTags}><span>Stress</span><span>Activity</span><span>Sleep</span></div></div>
+          <div className={styles.recovery}>
+            <div className={styles.recoveryTop}><div className={styles.ring} aria-hidden="true" /><div><p className={styles.smallLabel}>Right now</p><h3>Tense</h3><small>stress 78 · busy</small></div></div>
+            <p className={styles.smallLabel}>Recovery suggestion</p>
+            <div className={styles.recoveryMeal}><div className={styles.stripe} aria-hidden="true" /><div><h3>Chamomile &amp; oat bowl</h3><small>eases stress · 89%</small></div></div>
           </div>
-        </Section>
+        </section>
 
-        {/* APPLE WATCH */}
-        <Section>
-          <div className="grid md:grid-cols-2 gap-8 items-center">
-            <Card>
-              <div className="flex gap-4 text-[11px] font-semibold text-muted mb-4">
-                <span className="text-accent-text">Stress</span>
-                <span>Activity</span>
-                <span>Sleep</span>
-              </div>
-              <div className="text-[11px] text-muted mb-1">Right now</div>
-              <div className="font-bold text-[15px] mb-1">Tense</div>
-              <div className="text-[11px] text-muted mb-4">stress 78 · busy</div>
-              <div className="rounded-xl bg-[#f4ede2] p-3">
-                <div className="text-[10px] text-muted font-semibold mb-1">
-                  Recovery suggestion
-                </div>
-                <div className="text-[12px] font-bold">Chamomile & oat bowl</div>
-                <div className="text-[10.5px] text-muted">eases stress · 89%</div>
-              </div>
-            </Card>
-            <div>
-              <Eyebrow>Apple Watch</Eyebrow>
-              <H2>Hard day? We notice — and help you recover.</H2>
-              <p className="text-body-text text-[13px] leading-relaxed">
-                When your watch shows rising stress or a heavy workload, Mivan suggests food
-                and drinks that help you bounce back — right for your body in that moment.
-              </p>
-            </div>
-          </div>
-        </Section>
+        <section className={styles.section} aria-labelledby="picks-title">
+          <div className={styles.picksHeading}><h2 id="picks-title" className={styles.title}>Picks built around your body.</h2><p className={styles.smallLabel}>Today’s menu</p></div>
+          <div className={styles.picksGrid}>{picks.map(p => <article key={p.name} className={styles.pick}><div className={`${styles.pickImage} ${styles.stripe}`}><span>{p.name.includes("tea") ? "drink photo" : "food photo"}</span></div><div className={styles.pickCopy}><div><strong>{p.name}</strong><span>{p.score}</span></div><p>{p.tag}</p></div></article>)}</div>
+        </section>
 
-        {/* TODAY'S MENU */}
-        <Section className="text-center">
-          <H2>Picks built around your body.</H2>
-          <div className="text-muted text-[12px] mb-6">Today&rsquo;s menu</div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
-            {picks.map((p) => (
-              <Card key={p.name} className="p-3">
-                <ImageSlot className="h-24 mb-3" label={p.name.includes("tea") ? "drink photo" : "food photo"} />
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-bold">{p.name}</span>
-                  <span className="text-[11px] font-bold text-accent-text">{p.score}</span>
-                </div>
-                <div className="text-[10.5px] text-muted mt-0.5">{p.tag}</div>
-              </Card>
-            ))}
-          </div>
-        </Section>
+        <section className={styles.section} aria-labelledby="reviews-title">
+          <div className={styles.sectionHeading}><p className={styles.eyebrow}>Reviews</p><h2 id="reviews-title" className={styles.title}>Loved by people on the move.</h2></div>
+          <div className={styles.threeGrid}>{reviews.map(r => <article className={styles.review} key={r.name}><div className={styles.stars} aria-label="5 out of 5 stars">★★★★★</div><blockquote>“{r.quote}”</blockquote><div className={styles.reviewPerson}><div className={styles.stripe} aria-hidden="true" /><div><strong>{r.name}</strong><br /><span>{r.role}</span></div></div></article>)}</div>
+        </section>
 
-        {/* REVIEWS */}
-        <Section className="text-center">
-          <Eyebrow>Reviews</Eyebrow>
-          <H2>Loved by people on the move.</H2>
-          <div className="grid md:grid-cols-3 gap-5 mt-6 text-left">
-            {reviews.map((r) => (
-              <Card key={r.name}>
-                <div className="text-accent-text text-[13px] mb-2">★★★★★</div>
-                <p className="text-[12px] text-body-text leading-relaxed mb-3">
-                  &ldquo;{r.quote}&rdquo;
-                </p>
-                <div className="text-[12px] font-bold">{r.name}</div>
-                <div className="text-[11px] text-muted">{r.role}</div>
-              </Card>
-            ))}
-          </div>
-        </Section>
+        <section id="pricing" className={styles.section} aria-labelledby="pricing-title">
+          <div className={styles.sectionHeading}><p className={styles.eyebrow}>Pricing</p><h2 id="pricing-title" className={styles.title}>Start free. Upgrade<br />when you travel more.</h2></div>
+          <div className={styles.threeGrid}>{plans.map(p => <article key={p.name} className={`${styles.plan} ${p.popular ? styles.popular : ""}`}>
+            {p.popular && <div className={styles.popularBadge}>Most popular</div>}
+            <h3 className={styles.planName}>{p.name}</h3><div className={styles.price}><strong>{p.price}</strong><span>/mo</span></div><p>{p.tag}</p>
+            <ul>{p.features.map(f => <li key={f}><span aria-hidden="true">✓</span>{f}</li>)}</ul>
+            <Link href={p.name === "Team" ? "/contact" : "/login"} className={`${styles.button} ${styles.outline}`}>{p.cta}</Link>
+          </article>)}</div>
+        </section>
 
-        {/* PRICING */}
-        <Section className="text-center">
-          <Eyebrow>Pricing</Eyebrow>
-          <H2>Start free. Upgrade when you travel more.</H2>
-          <div className="grid md:grid-cols-3 gap-5 mt-6 text-left">
-            {plans.map((p) => (
-              <Card
-                key={p.name}
-                className={p.popular ? "border-accent ring-1 ring-accent relative" : ""}
-              >
-                {p.popular && (
-                  <div className="absolute -top-3 left-5 btn-gradient text-white text-[10px] font-bold px-3 py-1 rounded-full">
-                    Most popular
-                  </div>
-                )}
-                <div className="font-bold text-[14px] mt-2">{p.name}</div>
-                <div className="flex items-baseline gap-1 my-2">
-                  <span className="font-display font-extrabold text-2xl">{p.price}</span>
-                  <span className="text-muted text-[11px]">/mo</span>
-                </div>
-                <div className="text-muted text-[12px] mb-4">{p.tag}</div>
-                <ul className="space-y-2 text-[12px] mb-5">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-center gap-2">
-                      <span className="text-accent-text font-bold">✓</span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <GradientPill className="w-full">{p.cta}</GradientPill>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        {/* CTA */}
-        <Section className="text-center">
-          <H2>Create your account in seconds.</H2>
-          <p className="text-body-text text-[13px] max-w-md mx-auto mb-5">
-            Sign up with Google and start getting food that fits your body, your taste, and
-            your day.
-          </p>
-          <GradientPill>
-            <GoogleG /> Continue with Google
-          </GradientPill>
-          <div className="text-muted-2 text-[11px] mt-3">
-            Free to start · health data encrypted · never sold
-          </div>
-        </Section>
+        <section className={`${styles.section} ${styles.cta}`} aria-labelledby="signup-title"><h2 id="signup-title" className={styles.title}>Create your account in seconds.</h2><p>Sign up with Google and start getting food that fits your body, your taste, and your day.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}><GoogleIcon />Continue with Google</Link><small>Free to start · health data encrypted · never sold</small></section>
       </main>
       <Footer />
-    </>
+    </div>
   );
 }

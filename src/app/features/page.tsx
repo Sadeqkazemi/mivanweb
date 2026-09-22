@@ -1,9 +1,9 @@
-import { PublicNav } from "@/components/PublicNav";
+import { NavAuthActions } from "@/components/NavAuthActions";
+import Image from "next/image";
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { CTASection } from "@/components/CTASection";
-import { Section, Eyebrow } from "@/components/Section";
-import { ImageSlot } from "@/components/ImageSlot";
-
+import shared from "../home.module.css";
+import styles from "./features.module.css";
 const blocks = [
   {
     eyebrow: "Personalized",
@@ -44,52 +44,37 @@ const blocks = [
   },
 ];
 
+const links = [["Features", "/features"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"], ["About", "/about"], ["Blog", "/blog"]];
+
 export default function FeaturesPage() {
   return (
-    <>
-      <PublicNav />
-      <main>
-        <Section className="text-center">
-          <Eyebrow>Features</Eyebrow>
-          <h1 className="font-display font-extrabold text-[clamp(26px,5vw,42px)] tracking-[-0.03em] mb-3">
-            Everything Mivan does for you
-          </h1>
-          <p className="text-body-text text-[13px] max-w-xl mx-auto">
-            One companion for taste, health and recovery — in your pocket, wherever the day
-            takes you.
-          </p>
-        </Section>
-
-        {blocks.map((b) => (
-          <Section key={b.title}>
-            <div
-              className={`grid md:grid-cols-2 gap-8 items-center ${
-                b.reverse ? "md:[&>*:first-child]:order-2" : ""
-              }`}
-            >
-              <ImageSlot className="h-64" label={b.imgLabel} />
-              <div>
-                <Eyebrow>{b.eyebrow}</Eyebrow>
-                <h2 className="font-display font-extrabold text-[19px] tracking-[-0.03em] mb-2">
-                  {b.title}
-                </h2>
-                <p className="text-body-text text-[13px] leading-relaxed mb-4">{b.body}</p>
-                <ul className="space-y-2 text-[12.5px] font-medium">
-                  {b.points.map((p) => (
-                    <li key={p} className="flex items-center gap-2">
-                      <span className="text-accent-text font-bold">✓</span>
-                      {p}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+    <div className={shared.landing}>
+      <header className={`${shared.container} ${shared.nav}`}>
+        <Link href="/" className={shared.brand} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority /></Link>
+        <nav className={shared.navLinks} aria-label="Main navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/features" ? "page" : undefined} className={href === "/features" ? styles.active : undefined}>{label}</Link>)}</nav>
+        <NavAuthActions />
+        <details className={shared.mobileMenu}><summary aria-label="Toggle navigation">☰</summary><nav aria-label="Mobile navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/features" ? "page" : undefined}>{label}</Link>)}</nav></details>
+      </header>
+      <main className={shared.container}>
+        <section className={styles.hero} aria-labelledby="features-title">
+          <p className={shared.eyebrow}>Features</p>
+          <h1 id="features-title">Everything Mivan does<br />for you</h1>
+          <p className={styles.intro}>One companion for taste, health and recovery — in your pocket, wherever the day takes you.</p>
+        </section>
+        <div className={styles.blocks}>
+          {blocks.map((block, index) => <section key={block.title} className={styles.block} aria-labelledby={`feature-${index}`}>
+            <div className={styles.copy}>
+              <p className={shared.eyebrow}>{block.eyebrow}</p>
+              <h2 id={`feature-${index}`}>{block.title}</h2>
+              <p className={styles.body}>{block.body}</p>
+              <ul>{block.points.map(point => <li key={point}><span aria-hidden="true">✓</span>{point}</li>)}</ul>
             </div>
-          </Section>
-        ))}
-
-        <CTASection />
+            <div className={`${shared.stripe} ${styles.screen}`} role="img" aria-label={block.imgLabel}><span>{block.imgLabel}</span></div>
+          </section>)}
+        </div>
+        <section className={`${shared.cta} ${styles.cta}`} aria-labelledby="download-title"><h2 id="download-title" className={shared.title}>Eat what truly fits you.</h2><p>Download Mivan free on iPhone and Android and get food that fits your body, taste, and day.</p><Link href="/download" className={`${shared.button} ${shared.outline}`}>Get the app</Link></section>
       </main>
-      <Footer />
-    </>
+      <Footer variant="app" />
+    </div>
   );
 }

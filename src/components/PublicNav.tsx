@@ -1,41 +1,8 @@
-"use client";
-import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { Logo } from "./Logo";
-import { GradientPill } from "./Buttons";
-import { AuthModal } from "./AuthModal";
-
-const links = [
-  { href: "/features", label: "Features" },
-  { href: "/how-it-works", label: "How it works" },
-  { href: "/health", label: "Health" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/club", label: "Club" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/contact", label: "Contact" },
-];
-
+import { NavAuthActions } from "./NavAuthActions";
+import styles from "@/app/home.module.css";
+const links = [["Features", "/features"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"], ["About", "/about"], ["Blog", "/blog"]];
 export function PublicNav() {
-  const [modalOpen, setModalOpen] = useState(false);
-  return (
-    <>
-      <header className="sticky top-0 z-50 bg-paper/90 backdrop-blur border-b border-[var(--hairline)]">
-        <div className="content-col flex items-center justify-between py-3">
-          <Link href="/">
-            <Logo size={34} />
-          </Link>
-          <nav className="hidden md:flex items-center gap-6 text-[12px] font-semibold text-label">
-            {links.map((l) => (
-              <Link key={l.href} href={l.href} className="hover:text-accent-text transition">
-                {l.label}
-              </Link>
-            ))}
-          </nav>
-          <GradientPill onClick={() => setModalOpen(true)}>Get the app</GradientPill>
-        </div>
-      </header>
-      <AuthModal open={modalOpen} onClose={() => setModalOpen(false)} />
-    </>
-  );
+  return <header className={`${styles.container} ${styles.nav}`} style={{marginTop: 10, fontFamily: '"Albert Sans", sans-serif'}}><Link href="/" className={styles.brand} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority /></Link><nav className={styles.navLinks} aria-label="Main navigation">{links.map(([label,href]) => <Link href={href} key={href}>{label}</Link>)}</nav><NavAuthActions /><details className={styles.mobileMenu}><summary aria-label="Toggle navigation">☰</summary><nav aria-label="Mobile navigation">{links.map(([label,href]) => <Link href={href} key={href}>{label}</Link>)}</nav></details></header>;
 }
