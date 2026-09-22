@@ -96,3 +96,36 @@ h1, h2, h3, .font-display {
 .animate-floaty {
   animation: floaty 4s ease-in-out infinite;
 }
+
+/* Canonical STYLE_GUIDE tokens. Desktop dimensions use the documented 1.56 scale. */
+:root {
+  --panel-dark: #17110b; --footer: #15100b; --surface-warm: #fffaf2; --surface-alert: #fff5e6; --tint: #f4ede2;
+  --accent-deep: #e03a05; --accent-mid: #f2530f; --error: #c53a06;
+  --body-alt: #4a3f33; --on-dark: #c6bbab; --on-dark-2: #b8ad9d; --on-dark-3: #e7ddce; --on-dark-muted: #8a8071;
+  --footer-link: #d7cdbf; --footer-label: #7d7466;
+  --gradient-banner: linear-gradient(150deg, #ff9f2b 0%, #f2530f 62%, #e03a05 100%);
+  --hero-glow: radial-gradient(circle at 30% 30%, rgba(255,154,34,.34), rgba(255,154,34,0) 70%);
+  --border-card: rgba(29,22,15,.07); --border-button: rgba(29,22,15,.22); --border-accent: rgba(239,79,14,.22);
+  --border-dark: rgba(255,255,255,.14); --border-dark-button: rgba(255,255,255,.22);
+  --shadow-nav: 0 16px 40px -28px rgba(29,22,15,.5); --shadow-card: 0 40px 70px -56px rgba(29,22,15,.55);
+  --shadow-form: 0 40px 70px -60px rgba(29,22,15,.5); --shadow-button: 0 14px 30px -16px rgba(239,79,14,.9);
+  --shadow-modal: 0 50px 100px -40px rgba(21,16,11,.7); --focus-ring: 0 0 0 3px rgba(239,79,14,.12);
+  --content-width: 1597.44px; --section-space: clamp(37.44px, 4vw, 74.88px);
+  --page-title: clamp(46.8px, 7vw, 90.48px); --document-title: clamp(49.92px, 7.4vw, 99.84px);
+  --section-title: clamp(29.17px, 3.6vw, 45.24px); --panel-title: clamp(25.58px, 2.8vw, 32.76px);
+  --lead-size: clamp(19.03px, 1.9vw, 23.56px); --document-size: 19.34px; --card-size: 17.47px; --ui-size: 17.16px;
+  --radius-card: 39px; --radius-panel: 49.92px; --radius-banner: 59.28px; --radius-input: 20.28px;
+  --stripe: repeating-linear-gradient(45deg,#f3ede2,#f3ede2 17.16px,#faf5ec 17.16px,#faf5ec 34.32px);
+  --stripe-dark: repeating-linear-gradient(45deg,#241b12,#241b12 17.16px,#2c2118 17.16px,#2c2118 34.32px);
+}
+html, body { overflow-x: clip; }
+p { text-wrap: pretty; }
+.content-col { width: min(var(--content-width), calc(100% - 49.92px)); }
+button, a, input, textarea, select { -webkit-tap-highlight-color: transparent; }
+button:not(:disabled):hover { filter: brightness(.96); }
+input:focus-visible, textarea:focus-visible, select:focus-visible { border-color: var(--accent); box-shadow: var(--focus-ring); }
+@media(max-width:750px) {
+  :root { --page-title: clamp(30px, 9vw, 46px); --document-title: clamp(32px, 10vw, 49px); --section-title: 29px; --panel-title: 24px; --lead-size: 18px; --document-size: 16px; --card-size: 15px; --ui-size: 14px; --radius-card: 26px; --radius-panel: 32px; --radius-banner: 38px; --radius-input: 13px; }
+  .content-col { width: calc(100% - 32px); }
+}
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior: auto; }.animate-floaty { animation: none; } }

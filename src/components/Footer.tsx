@@ -1,58 +1,45 @@
+import Image from "next/image";
 import Link from "next/link";
-import { Logo } from "./Logo";
+import styles from "./Footer.module.css";
 
-export function Footer() {
+const groups = [
+  { title: "Product", links: [["How it works", "/how-it-works"], ["Menu scan", "/features"], ["Smartwatch", "/health"], ["Pricing", "/pricing"]] },
+  { title: "Account", links: [["Sign in", "/login"], ["Create account", "/login"], ["My dashboard", "/dashboard"], ["Admin panel", "/admin/login"]] },
+  { title: "Company", links: [["About", "/about"], ["Privacy", "/privacy"], ["Terms", "/terms"], ["Contact", "/contact"]] },
+];
+
+const appGroups = [
+  { title: "Product", links: [["Features", "/features"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"], ["Download", "/download"]] },
+  { title: "Company", links: [["About", "/about"], ["Blog", "/blog"], ["FAQ", "/faq"], ["Contact", "/contact"]] },
+  { title: "Account", links: [["Sign in", "/login"], ["My account", "/dashboard"], ["Admin", "/admin/login"]] },
+];
+
+const legalGroups = [appGroups[0], appGroups[1], { title: "Legal", links: [["Privacy Policy", "/privacy"], ["Terms of Service", "/terms"]] }];
+export function Footer({ variant = "home", active }: { variant?: "home" | "app" | "legal" | "full"; active?: string }) {
   return (
-    <footer className="border-t border-[var(--hairline)] mt-16">
-      <div className="content-col py-10 grid grid-cols-2 md:grid-cols-4 gap-8">
-        <div className="col-span-2 md:col-span-1">
-          <Logo size={30} />
-          <p className="text-muted text-[12px] mt-3 leading-relaxed">
-            Your AI food companion for taste, health, and recovery — wherever the day takes
-            you.
-          </p>
-          <p className="text-muted-2 text-[11px] mt-3">hello@mivan.ai</p>
-          <p className="text-muted-2 text-[11px]">
-            Downtown Dubai, Burj Khalifa Blvd, Office 210, Dubai, UAE
-          </p>
+    <footer className={styles.footer}>
+      <div className={`${styles.container} ${styles.main}`}>
+        <div className={styles.brand}>
+          <Link href="/" aria-label="Mivan home" className={styles.logo}>
+            <Image src="/images/mivan-logo.png" alt="Mivan" width={84} height={42} />
+          </Link>
+          <p className={styles.description}>Your AI food companion for taste, health, and recovery — {variant !== "home" ? "on iPhone and Android." : "wherever the day takes you."}</p>
+          <a className={styles.email} href="mailto:hello@mivan.ai">hello@mivan.ai</a>
+          {variant !== "legal" && <address className={styles.address}>
+            <svg width="20" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
+            <span>Downtown Dubai, Burj Khalifa Blvd, Office 210,<br />Dubai, UAE</span>
+          </address>}
         </div>
-        <div>
-          <div className="text-label text-[11px] font-bold uppercase tracking-wide mb-3">
-            Product
-          </div>
-          <ul className="space-y-2 text-[12px] text-muted">
-            <li><Link href="/how-it-works" className="hover:text-accent-text">How it works</Link></li>
-            <li><Link href="/features" className="hover:text-accent-text">Menu scan</Link></li>
-            <li><Link href="/health" className="hover:text-accent-text">Smartwatch</Link></li>
-            <li><Link href="/pricing" className="hover:text-accent-text">Pricing</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-label text-[11px] font-bold uppercase tracking-wide mb-3">
-            Account
-          </div>
-          <ul className="space-y-2 text-[12px] text-muted">
-            <li><Link href="/login" className="hover:text-accent-text">Sign in</Link></li>
-            <li><Link href="/login" className="hover:text-accent-text">Create account</Link></li>
-            <li><Link href="/dashboard" className="hover:text-accent-text">My dashboard</Link></li>
-            <li><Link href="/admin/login" className="hover:text-accent-text">Admin panel</Link></li>
-          </ul>
-        </div>
-        <div>
-          <div className="text-label text-[11px] font-bold uppercase tracking-wide mb-3">
-            Company
-          </div>
-          <ul className="space-y-2 text-[12px] text-muted">
-            <li><Link href="/about" className="hover:text-accent-text">About</Link></li>
-            <li><Link href="/faq" className="hover:text-accent-text">Privacy</Link></li>
-            <li><Link href="/faq" className="hover:text-accent-text">Terms</Link></li>
-            <li><Link href="/contact" className="hover:text-accent-text">Contact</Link></li>
-          </ul>
+        <div className={`${styles.groups} ${variant === "full" ? styles.fullGroups : ""}`}>
+          {(variant === "full" ? [...legalGroups, appGroups[2]] : variant === "legal" ? legalGroups : variant === "app" ? appGroups : groups).map(group => (
+            <nav key={group.title} aria-label={`${group.title} footer links`}>
+              <h2>{group.title}</h2>
+              <ul>{group.links.map(([label, href]) => <li key={label}><Link href={href} aria-current={active === href ? "page" : undefined}>{label}</Link></li>)}</ul>
+            </nav>
+          ))}
         </div>
       </div>
-      <div className="content-col py-4 border-t border-[var(--hairline)] text-muted-2 text-[11px]">
-        © 2026 Mivan · Made for people on the move
-      </div>
+      <div className={styles.bottom}><div className={styles.container}>© 2026 Mivan · Made for people on the move</div></div>
     </footer>
   );
 }

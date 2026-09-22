@@ -1,9 +1,10 @@
-import { PublicNav } from "@/components/PublicNav";
+import { NavAuthActions } from "@/components/NavAuthActions";
+import Image from "next/image";
+import Link from "next/link";
 import { Footer } from "@/components/Footer";
-import { CTASection } from "@/components/CTASection";
-import { Section, Eyebrow, H2, Card } from "@/components/Section";
-import { ImageSlot } from "@/components/ImageSlot";
-
+import shared from "../home.module.css";
+import featureStyles from "../features/features.module.css";
+import styles from "./about.module.css";
 const stats = [
   { value: "120+", label: "Cities covered" },
   { value: "98%", label: "Match accuracy" },
@@ -24,74 +25,40 @@ const team = [
   { role: "Head of Design" },
 ];
 
+const links = [["Features", "/features"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"], ["About", "/about"], ["Blog", "/blog"]];
 export default function AboutPage() {
   return (
-    <>
-      <PublicNav />
-      <main>
-        <Section className="text-center">
-          <Eyebrow>About</Eyebrow>
-          <h1 className="font-display font-extrabold text-[clamp(26px,5vw,42px)] tracking-[-0.03em] mb-3">
-            Food that fits you, wherever you are
-          </h1>
-          <p className="text-body-text text-[13px] max-w-xl mx-auto">
-            Millions travel and struggle to find food that suits their taste, diet and
-            health. We built Mivan to close that gap.
-          </p>
-        </Section>
-
-        <Section className="text-center">
-          <Eyebrow>Our mission</Eyebrow>
-          <H2>Help everyone eat what truly fits them.</H2>
-          <p className="text-body-text text-[13px] leading-relaxed max-w-2xl mx-auto">
-            Modern life loads our days with stress and pressure that quietly shape what our
-            bodies actually need — and travel makes it even harder to find the right meal.
-          </p>
-          <p className="text-body-text text-[13px] leading-relaxed max-w-2xl mx-auto mt-3">
-            Mivan learns your palate, understands your conditions and diet, reads your day
-            through your smartwatch, and recommends the right meal for your exact moment —
-            even from a photo of a menu you have never seen.
-          </p>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mt-10">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <div className="font-display font-extrabold text-2xl text-accent-text">{s.value}</div>
-                <div className="text-muted text-[11px] mt-1">{s.label}</div>
-              </div>
-            ))}
+    <div className={shared.landing}>
+      <header className={`${shared.container} ${shared.nav}`}>
+        <Link href="/" className={shared.brand} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority /></Link>
+        <nav className={shared.navLinks} aria-label="Main navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/about" ? "page" : undefined} className={href === "/about" ? featureStyles.active : undefined}>{label}</Link>)}</nav>
+        <NavAuthActions />
+        <details className={shared.mobileMenu}><summary aria-label="Toggle navigation">☰</summary><nav aria-label="Mobile navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/about" ? "page" : undefined}>{label}</Link>)}</nav></details>
+      </header>
+      <main className={shared.container}>
+        <section className={featureStyles.hero} aria-labelledby="about-title">
+          <p className={shared.eyebrow}>About</p>
+          <h1 id="about-title">Food that fits you,<br />wherever you are</h1>
+          <p className={`${featureStyles.intro} ${styles.intro}`}>Millions travel and struggle to find food that suits their taste, diet and health. We built Mivan to close that gap.</p>
+        </section>
+        <section className={`${shared.why} ${styles.mission}`} aria-labelledby="mission-title">
+          <div className={shared.whyIntro}>
+            <div><p className={shared.eyebrow}>Our mission</p><h2 id="mission-title" className={styles.title}>Help everyone eat<br />what truly fits them.</h2></div>
+            <div className={shared.whyCopy}><p>Modern life loads our days with stress and pressure that quietly shape what our bodies actually need — and travel makes it even harder to find the right meal.</p><p>Mivan learns your palate, understands your conditions and diet, reads your day through your smartwatch, and recommends the right meal for your exact moment — even from a photo of a menu you have never seen.</p></div>
           </div>
-        </Section>
-
-        <Section className="text-center">
-          <Eyebrow>Our values</Eyebrow>
-          <H2>What we believe</H2>
-          <div className="grid md:grid-cols-3 gap-5 mt-6 text-left">
-            {values.map((v) => (
-              <Card key={v.title}>
-                <div className="font-bold text-[13px] mb-1.5">{v.title}</div>
-                <div className="text-muted text-[12px] leading-relaxed">{v.body}</div>
-              </Card>
-            ))}
-          </div>
-        </Section>
-
-        <Section className="text-center">
-          <Eyebrow>Team</Eyebrow>
-          <H2>The people behind Mivan</H2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mt-6">
-            {team.map((t) => (
-              <div key={t.role}>
-                <ImageSlot className="h-32 mb-3" label="team photo" />
-                <div className="font-bold text-[12px]">Team member</div>
-                <div className="text-muted text-[11px]">{t.role}</div>
-              </div>
-            ))}
-          </div>
-        </Section>
-
-        <CTASection />
+          <div className={shared.stats}>{stats.map(stat => <div className={shared.stat} key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></div>)}</div>
+        </section>
+        <section className={styles.section} aria-labelledby="values-title">
+          <div className={styles.heading}><p className={shared.eyebrow}>Our values</p><h2 id="values-title" className={styles.title}>What we believe</h2></div>
+          <div className={shared.threeGrid}>{values.map(value => <article key={value.title} className={styles.value}><h3>{value.title}</h3><p>{value.body}</p></article>)}</div>
+        </section>
+        <section className={styles.section} aria-labelledby="team-title">
+          <div className={styles.heading}><p className={shared.eyebrow}>Team</p><h2 id="team-title" className={styles.title}>The people behind Mivan</h2></div>
+          <div className={styles.team}>{team.map(member => <article className={styles.member} key={member.role}><div className={`${shared.stripe} ${styles.photo}`} role="img" aria-label={`Team photo placeholder: ${member.role}`}><span>team photo</span></div><div className={styles.memberCopy}><h3>Team member</h3><p>{member.role}</p></div></article>)}</div>
+        </section>
+        <section className={`${shared.cta} ${featureStyles.cta}`} aria-labelledby="download-title"><h2 id="download-title" className={shared.title}>Eat what truly fits you.</h2><p>Download Mivan free on iPhone and Android and get food that fits your body, taste, and day.</p><Link href="/download" className={`${shared.button} ${shared.outline}`}>Get the app</Link></section>
       </main>
-      <Footer />
-    </>
+      <Footer variant="app" />
+    </div>
   );
 }

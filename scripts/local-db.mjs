@@ -1,0 +1,16 @@
+import EmbeddedPostgres from 'embedded-postgres';
+import { existsSync } from 'node:fs';
+const url = new URL(process.env.DATABASE_URL);
+if (!['127.0.0.1','localhost'].includes(url.hostname)) throw new Error('Local database requires a loopback host');
+const pg = new EmbeddedPostgres({ databaseDir: './data/postgres', user: decodeURIComponent(url.username), password: decodeURIComponent(url.password), port: Number(url.port || 5432), persistent: true, authMethod: 'scram-sha-256', postgresFlags: ['-h','127.0.0.1'], onLog: () => {}, onError: console.error });
+if (!existsSync('./data/postgres/PG_VERSION')) await pg.initialise();
+await pg.start();
+const client = pg.getPgClient(); await client.connect();
+const name=url.pathname.slice(1);
+if (!/^[a-z][a-z0-9_]*$/.test(name)) throw new Error('Invalid database name');
+const result=await client.query('SELECT 1 FROM pg_database WHERE datname=$1',[name]);
+if(!result.rowCount) await pg.createDatabase(name);
+await client.end();
+console.log('Local PostgreSQL ready on loopback port '+url.port);
+for (const signal of ['SIGINT','SIGTERM']) process.on(signal,async()=>{await pg.stop();process.exit(0)});
+setInterval(()=>{},60000);

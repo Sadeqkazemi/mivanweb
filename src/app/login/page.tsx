@@ -1,116 +1,59 @@
 "use client";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
+import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import { LogoMark } from "@/components/Logo";
-import { GoogleG } from "@/components/Buttons";
-import { ImageSlot } from "@/components/ImageSlot";
+import styles from "./login.module.css";
 
 export default function LoginPage() {
-  const [mode, setMode] = useState<"login" | "signup">("login");
-  const isLogin = mode === "login";
-
-  return (
-    <div className="min-h-screen grid md:grid-cols-2">
-      <div className="hidden md:flex flex-col justify-between p-10 bg-[#f4ede2]">
-        <Link href="/" className="text-[12px] font-semibold text-label">
-          ← Back to site
-        </Link>
-        <div>
-          <h1 className="font-display font-extrabold text-[28px] tracking-[-0.03em] mb-3 max-w-xs">
-            Food that fits your body, taste, and day.
-          </h1>
-          <p className="text-body-text text-[13px] leading-relaxed max-w-sm mb-5">
-            Sign in to get personalized picks wherever you are — powered by your taste
-            profile and your Apple Watch.
-          </p>
-          <ul className="space-y-2 text-[12.5px] font-medium mb-6">
-            {["Personalized recommendations", "Scan any menu, anywhere", "Stress-aware recovery picks"].map(
-              (t) => (
-                <li key={t} className="flex items-center gap-2">
-                  <span className="text-accent-text font-bold">✓</span>
-                  {t}
-                </li>
-              )
-            )}
-          </ul>
-          <ImageSlot className="h-56" label="app screen" />
-        </div>
-        <div className="text-muted-2 text-[11px]">© 2026 Mivan</div>
-      </div>
-
-      <div className="flex items-center justify-center p-6">
-        <div className="w-full max-w-[360px]">
-          <div className="flex items-center gap-2 mb-6 md:hidden">
-            <LogoMark size={32} />
-            <span className="font-display font-extrabold text-[17px]">Mivan</span>
-          </div>
-
-          <div className="flex bg-[#f4ede2] rounded-2xl p-1 mb-6 text-[11.5px] font-bold">
-            <button
-              onClick={() => setMode("login")}
-              className={`flex-1 py-2 rounded-[14px] transition ${isLogin ? "bg-white text-ink shadow-sm" : "text-muted"}`}
-            >
-              Sign in
-            </button>
-            <button
-              onClick={() => setMode("signup")}
-              className={`flex-1 py-2 rounded-[14px] transition ${!isLogin ? "bg-white text-ink shadow-sm" : "text-muted"}`}
-            >
-              Create account
-            </button>
-          </div>
-
-          <h2 className="font-display font-extrabold text-[20px] mb-1">
-            {isLogin ? "Welcome back" : "Create your account"}
-          </h2>
-          <p className="text-muted text-[12.5px] mb-5">
-            {isLogin
-              ? "Sign in to get food that fits your body, taste, and day."
-              : "Start getting food that fits your body, your taste, and your day."}
-          </p>
-
-          <button className="w-full flex items-center justify-center gap-2 rounded-full border border-[var(--hairline-strong)] bg-white py-3 text-[11.5px] font-bold mb-4">
-            <GoogleG /> Continue with Gmail
-          </button>
-
-          <div className="flex items-center gap-3 text-muted-2 text-[10px] font-semibold mb-4">
-            <div className="flex-1 h-px bg-[var(--hairline)]" />
-            OR
-            <div className="flex-1 h-px bg-[var(--hairline)]" />
-          </div>
-
-          <form className="flex flex-col gap-3">
-            {!isLogin && (
-              <input placeholder="Full name" className="rounded-[13px] border border-[var(--hairline-strong)] px-4 py-3 text-[12.5px] outline-none focus:border-accent" />
-            )}
-            <input placeholder="Email" type="email" className="rounded-[13px] border border-[var(--hairline-strong)] px-4 py-3 text-[12.5px] outline-none focus:border-accent" />
-            <input placeholder="Password" type="password" className="rounded-[13px] border border-[var(--hairline-strong)] px-4 py-3 text-[12.5px] outline-none focus:border-accent" />
-            {isLogin && (
-              <div className="flex items-center justify-between text-[11px] text-muted">
-                <label className="flex items-center gap-1.5">
-                  <input type="checkbox" className="accent-[var(--accent)]" />
-                  Remember me
-                </label>
-                <a href="#" className="text-accent-text font-semibold">Forgot password?</a>
-              </div>
-            )}
-            <Link href="/dashboard" className="btn-gradient w-full text-center rounded-full text-white text-[11.5px] font-bold py-3 mt-1">
-              {isLogin ? "Sign in" : "Create account"}
-            </Link>
-          </form>
-
-          <p className="text-center text-muted text-[11.5px] mt-4">
-            {isLogin ? "Don't have an account? " : "Already have an account? "}
-            <button onClick={() => setMode(isLogin ? "signup" : "login")} className="text-accent-text font-semibold">
-              {isLogin ? "Create account" : "Sign in"}
-            </button>
-          </p>
-
-          <Link href="/admin/login" className="block text-center text-muted-2 text-[11px] mt-6">
-            Staff & admin sign in →
-          </Link>
-        </div>
-      </div>
+ const router = useRouter();
+ const [mode, setMode] = useState<"login" | "signup">("login");
+ const [notice, setNotice] = useState("");
+ const [busy, setBusy] = useState(false);
+ const isLogin = mode === "login";
+ function changeMode(next: "login" | "signup") { setMode(next); setNotice(""); }
+ async function submit(event: FormEvent<HTMLFormElement>) {
+ event.preventDefault(); setBusy(true); setNotice(""); const data = new FormData(event.currentTarget);
+ const credentials = { email: String(data.get("email")).trim().toLowerCase(), password: String(data.get("password")) };
+ try { const result = isLogin ? await authClient.signIn.email({ ...credentials, rememberMe: data.has("remember") }) : await authClient.signUp.email({ ...credentials, name: String(data.get("name")).trim() });
+ if (result.error) { setNotice(isLogin ? "Unable to sign in. Check your email and password." : "Unable to create your account. Check your details or try signing in."); return; }
+ const destination = new URLSearchParams(window.location.search).get("next");
+ router.replace(destination === "/admin" ? "/admin" : "/dashboard"); router.refresh();
+ } catch { setNotice("Connection unavailable. Please try again."); } finally { setBusy(false); }
+ }
+ return <main className={styles.page}>
+  <aside className={styles.brandPanel}>
+   <Link href="/" className={styles.back}>← Back to site</Link>
+   <div className={styles.pitch}>
+    <Link href="/" className={styles.logo} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={60} height={30} priority /></Link>
+    <h1>Food that fits your<br />body, taste, and day.</h1>
+    <p>Sign in to get personalized picks wherever you are — powered by your taste profile and your Apple Watch.</p>
+    <ul>{["Personalized recommendations", "Scan any menu, anywhere", "Stress-aware recovery picks"].map(text => <li key={text}><span aria-hidden="true">✓</span>{text}</li>)}</ul>
+   </div>
+   <small>© 2026 Mivan</small>
+  </aside>
+  <section className={styles.formPanel} aria-labelledby="auth-title">
+   <div className={styles.formWrap}>
+    <div className={styles.tabs} role="group" aria-label="Account access">
+     <button type="button" aria-pressed={isLogin} className={isLogin ? styles.active : ""} onClick={() => changeMode("login")}>Sign in</button>
+     <button type="button" aria-pressed={!isLogin} className={!isLogin ? styles.active : ""} onClick={() => changeMode("signup")}>Create account</button>
     </div>
-  );
+    <h2 id="auth-title">{isLogin ? "Welcome back" : "Create your account"}</h2>
+    <p className={styles.subtitle}>{isLogin ? "Sign in to continue to your Mivan dashboard." : "Start getting food that fits you in seconds."}</p>
+    <button type="button" className={styles.google} onClick={() => setNotice("Google sign-in is not connected yet.")}><span aria-hidden="true">G</span>Continue with Gmail</button>
+    <div className={styles.divider}><span />OR<span /></div>
+    <form onSubmit={submit}>
+     {!isLogin && <label className={styles.field}>Full name<input name="name" maxLength={100} autoComplete="name" placeholder="Sara Ahmadi" required /></label>}
+     <label className={styles.field}>Email<input name="email" type="email" autoComplete="email" placeholder="you@gmail.com" required /></label>
+     <label className={styles.field}>Password<input name="password" type="password" autoComplete={isLogin ? "current-password" : "new-password"} placeholder="••••••••" required minLength={isLogin ? undefined : 12} maxLength={128} /></label>
+     <div className={styles.options}><label><input type="checkbox" name="remember" />Remember me</label><button type="button" onClick={() => setNotice("Password recovery is not connected yet.")}>Forgot password?</button></div>
+     <button type="submit" disabled={busy} className={styles.submit}>{busy ? "Please wait…" : isLogin ? "Sign in" : "Create account"}</button>
+    </form>
+    {notice && <p className={styles.notice} role="status">{notice}</p>}
+    <p className={styles.switch}>{isLogin ? "New to Mivan? " : "Already have an account? "}<button type="button" onClick={() => changeMode(isLogin ? "signup" : "login")}>{isLogin ? "Create account" : "Sign in"}</button></p>
+    <div className={styles.staff}><Link href="/admin/login">Staff &amp; admin sign in →</Link></div>
+   </div>
+  </section>
+ </main>;
 }

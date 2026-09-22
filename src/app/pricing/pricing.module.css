@@ -1,0 +1,15 @@
+.plans { margin-top: 80px; gap: 28px; }
+.questions { margin-top: 80px; }
+.questions > h2 { text-align: center; font-size: 36px; font-weight: 700; letter-spacing: -.035em; line-height: 1.15; margin-bottom: 48px; }
+.answers { display: grid; gap: 14px; }
+.answer { border: 1px solid var(--border-card); border-radius: 26px; background: white; padding: 24px 26px; }
+.answer h3 { font: 700 15px/1.4 "Albert Sans", sans-serif; margin-bottom: 8px; }
+.answer p { color: var(--body-text); font-size: 14px; line-height: 1.6; }
+.cta { margin-top: 80px; }
+@media (max-width: 700px) {
+ .plans { margin-top: 56px; gap: 24px; }.questions { margin-top: 60px; }
+ .questions > h2 { font-size: 32px; margin-bottom: 32px; }.answer { padding: 22px; }.cta { margin-top: 60px; }
+}
+/* Matched to the pricing reference: a predominantly vertical orange gradient. */
+.plans .plus { background: var(--gradient-banner); }
+.questions > h2 { font-size:var(--section-title); }.answer { border-radius:var(--radius-card); }.answer p { font-size:var(--card-size); }

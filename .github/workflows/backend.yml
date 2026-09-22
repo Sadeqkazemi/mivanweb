@@ -1,0 +1,36 @@
+name: Backend checks
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: mivan
+          POSTGRES_PASSWORD: test-only-password
+          POSTGRES_DB: mivan_test
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U mivan -d mivan_test"
+          --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      DATABASE_URL: postgresql://mivan:test-only-password@127.0.0.1:5432/mivan_test
+      BETTER_AUTH_URL: http://127.0.0.1:3000
+      BETTER_AUTH_SECRET: ci-only-not-a-production-secret-9829384728347
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate
+      - run: npm run lint
+      - run: npm run build
+      - name: Integration tests
+        run: |
+          touch .env
+          npm run start > /tmp/mivan-server.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:3000/login >/dev/null && break; sleep 1; done
+          npm run test:integration

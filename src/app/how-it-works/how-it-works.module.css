@@ -1,0 +1,14 @@
+.number { width: 54px; height: 54px; display: grid; place-items: center; background: var(--gradient-primary); border-radius: 21px; font-size: 20px; font-weight: 700; color: white; margin-bottom: 26px; }
+.reverse .copy { grid-column: 2; grid-row: 1; }
+.reverse .screen { grid-column: 1; grid-row: 1; }
+.accuracy { margin-top: 96px; }
+.heading { text-align: center; margin-bottom: 60px; }
+.heading h2 { font-size: 44px; font-weight: 700; line-height: 1.08; letter-spacing: -.04em; }
+.card { background: #fff; border: 1px solid var(--border-card); border-radius: 32px; padding: 28px; }
+.card h3 { font: 700 18px/1.3 "Albert Sans", sans-serif; margin-bottom: 12px; }
+.card p { font-size: 14px; line-height: 1.6; color: var(--body-text); }
+@media (max-width: 700px) {
+ .reverse .copy, .reverse .screen { grid-column: auto; grid-row: auto; }
+ .accuracy { margin-top: 72px; }.heading { margin-bottom: 32px; }.heading h2 { font-size: 34px; }
+ .card { padding: 26px; border-radius: 28px; }
+}
