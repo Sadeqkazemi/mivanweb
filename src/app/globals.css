@@ -1,0 +1,98 @@
+@import "tailwindcss";
+
+:root {
+  /* Mivan / Milyfood design tokens */
+  --paper: #fdf3e7;
+  --ink: #1d160f;
+  --accent: #ef4f0e;
+  --accent-light: #ff9a22;
+  --accent-light-2: #ff9f2b;
+  --accent-text: #e0450a;
+  --surface: #ffffff;
+  --body-text: #564c40;
+  --label: #544a3e;
+  --muted: #7c7264;
+  --muted-2: #8d8478;
+  --muted-3: #a39a8d;
+  --muted-4: #a8a294;
+  --selection: #ffd2a8;
+  --hairline: rgba(29, 22, 15, 0.12);
+  --hairline-strong: rgba(29, 22, 15, 0.16);
+
+  --gradient-primary: linear-gradient(180deg, #ff9a22, #ef4f0e);
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --font-display: "Bricolage Grotesque";
+  --font-body: "Albert Sans";
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-accent-text: var(--accent-text);
+  --color-surface: var(--surface);
+  --color-body-text: var(--body-text);
+  --color-label: var(--label);
+  --color-muted: var(--muted);
+  --color-muted-2: var(--muted-2);
+  --color-hairline: var(--hairline);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-body);
+  --font-display: var(--font-display);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body), "Albert Sans", ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display), "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--selection);
+}
+
+.grad-word {
+  background-image: var(--gradient-primary);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+.grad-word::selection {
+  color: #e0450a;
+  -webkit-text-fill-color: #e0450a;
+  background: var(--selection);
+}
+
+.btn-gradient {
+  background-image: var(--gradient-primary);
+}
+.btn-gradient:hover {
+  filter: brightness(0.96);
+  transform: translateY(-1px);
+}
+
+.content-col {
+  width: min(1024px, 100% - 32px);
+  margin: 0 auto;
+}
+
+@keyframes floaty {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+.animate-floaty {
+  animation: floaty 4s ease-in-out infinite;
+}
