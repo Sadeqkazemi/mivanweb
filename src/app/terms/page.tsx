@@ -36,7 +36,7 @@ export default function TermsPage() {
       <div className={styles.layout}>
         <TermsContents items={sections.map(({ id, label }) => ({ id, label }))} />
         <div className={styles.document}>{sections.map(({id, title, body}, i) => <section key={id} id={id} aria-labelledby={`${id}-title`}><h2 id={`${id}-title`}><span>{i + 1}.</span> {title}</h2>{body}</section>)}
-          <div className={styles.contact}><p>Questions? <a href="mailto:legal@mivan.ai">legal@mivan.ai</a><br />Mivan, Downtown Dubai, Burj Khalifa Blvd, Office 210, Dubai, UAE.</p><Link href="/contact" className={`${shared.button} ${shared.primary}`}>Contact us</Link></div>
+          <div className={styles.contact}><p>Questions? <a href="mailto:info@mivanfood.com">info@mivanfood.com</a><br />Mivan, Downtown Dubai, Burj Khalifa Blvd, Office 210, Dubai, UAE.</p><Link href="/contact" className={`${shared.button} ${shared.primary}`}>Contact us</Link></div>
         </div>
       </div>
     </main><Footer variant="legal" active="/terms" />

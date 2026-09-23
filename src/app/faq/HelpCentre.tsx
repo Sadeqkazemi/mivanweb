@@ -23,10 +23,10 @@ const groups = [
   { title: "Billing", items: [
     { q: "Can I cancel anytime?", a: "Yes. Cancel from Settings to stop the next renewal. You keep access until the end of the period you have already paid for." },
     { q: "Do you offer team plans?", a: "Yes — the Team plan supports up to 10 members with trip- and expense-friendly billing. See Pricing for the available plans." },
-    { q: "How do refunds work?", a: "For purchases through the App Store or Google Play, that store’s refund rules apply. For other billing questions, contact help@mivan.ai." },
+    { q: "How do refunds work?", a: "For purchases through the App Store or Google Play, that store’s refund rules apply. For other billing questions, contact info@mivanfood.com." },
   ]},
   { title: "Restaurants", items: [
-    { q: "How do restaurants join?", a: "Contact partners@mivan.ai or choose Restaurant partner on our contact form. Our team can help you with the next steps and menu information." },
+    { q: "How do restaurants join?", a: "Contact info@mivanfood.com or choose Restaurant partner on our contact form. Our team can help you with the next steps and menu information." },
     { q: "Who keeps menu data accurate?", a: "Restaurant partners are responsible for the accuracy of the menus, ingredient details and allergen information they publish. Always confirm important dietary requirements directly with the restaurant." },
   ]},
 ];

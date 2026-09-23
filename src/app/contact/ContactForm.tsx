@@ -4,11 +4,11 @@ import Link from "next/link";
 import shared from "../home.module.css";
 import styles from "./contact.module.css";
 const topics = [
-  { name: "Support", email: "help@mivan.ai", description: "Account, app and billing questions." },
-  { name: "Health & allergens", email: "help@mivan.ai", description: "Health signals, dietary preferences and allergen questions." },
-  { name: "Restaurant partner", email: "partners@mivan.ai", description: "Restaurant partnerships and menu questions." },
-  { name: "Press", email: "press@mivan.ai", description: "Media enquiries and press requests." },
-  { name: "Something else", email: "hello@mivan.ai", description: "General questions, feedback and ideas." },
+  { name: "Support", email: "info@mivanfood.com", description: "Account, app and billing questions." },
+  { name: "Health & allergens", email: "info@mivanfood.com", description: "Health signals, dietary preferences and allergen questions." },
+  { name: "Restaurant partner", email: "info@mivanfood.com", description: "Restaurant partnerships and menu questions." },
+  { name: "Press", email: "info@mivanfood.com", description: "Media enquiries and press requests." },
+  { name: "Something else", email: "info@mivanfood.com", description: "General questions, feedback and ideas." },
 ];
 export function ContactForm() {
   const [selected, setSelected] = useState(0);

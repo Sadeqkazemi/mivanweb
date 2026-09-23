@@ -9,7 +9,7 @@ import styles from "./contact.module.css";
 
 export const metadata: Metadata = { title: "Contact | Mivan", description: "Contact Mivan for support, health and allergen questions, restaurant partnerships or press." };
 const links = [["Features", "/features"], ["How it works", "/how-it-works"], ["Pricing", "/pricing"], ["About", "/about"], ["Blog", "/blog"]];
-const contacts = [["General", "hello@mivan.ai"], ["Account & billing", "help@mivan.ai"], ["Restaurants", "partners@mivan.ai"], ["Press", "press@mivan.ai"]];
+const contacts = [["General", "info@mivanfood.com"], ["Account & billing", "info@mivanfood.com"], ["Restaurants", "info@mivanfood.com"], ["Press", "info@mivanfood.com"]];
 export default function ContactPage() {
   return <div className={shared.landing}>
     <header className={`${shared.container} ${shared.nav}`}>

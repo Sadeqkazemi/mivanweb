@@ -24,7 +24,7 @@ export function Footer({ variant = "home", active }: { variant?: "home" | "app" 
             <Image src="/images/mivan-logo.png" alt="Mivan" width={84} height={42} />
           </Link>
           <p className={styles.description}>Your AI food companion for taste, health, and recovery — {variant !== "home" ? "on iPhone and Android." : "wherever the day takes you."}</p>
-          <a className={styles.email} href="mailto:hello@mivan.ai">hello@mivan.ai</a>
+          <a className={styles.email} href="mailto:info@mivanfood.com">info@mivanfood.com</a>
           {variant !== "legal" && <address className={styles.address}>
             <svg width="20" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" /><circle cx="12" cy="10" r="2.5" /></svg>
             <span>Downtown Dubai, Burj Khalifa Blvd, Office 210,<br />Dubai, UAE</span>
