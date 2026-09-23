@@ -30,6 +30,8 @@ services:
       DATABASE_URL: postgresql://mivan:${POSTGRES_PASSWORD}@db:5432/mivan
       BETTER_AUTH_URL: https://www.mivanfood.com
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET}
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       HOSTNAME: 0.0.0.0
     depends_on:
       migrate:

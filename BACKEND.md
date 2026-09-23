@@ -5,7 +5,7 @@ Next.js App Router + React, PostgreSQL, Prisma 6.19.3 and Better Auth. Node 22.1
 ## Local setup
 
 1. `npm ci` (stop the Next.js process first on Windows, because Prisma's engine DLL may be locked).
-2. Copy `.env.example` to `.env`. Choose a local database password and generate a random secret with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`.
+2. Copy `.env.example` to `.env`. Choose a local database password and generate a random secret with `node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"`. To enable Google sign-in, create a Google Web OAuth client, set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, and register `http://127.0.0.1:3000/api/auth/callback/google` as an authorized redirect URI.
 3. `npm run db:dev` in one terminal. This starts persistent PostgreSQL on loopback only, using the ignored `data/postgres` directory. Keep it running. Ctrl+C stops it without removing data. It is a development helper, not a production database service.
 4. `npm run db:migrate` in another terminal.
 5. `npm run dev`, then open the exact origin in BETTER_AUTH_URL (default http://127.0.0.1:3000).
@@ -16,6 +16,7 @@ For an existing, deliberately selected staff account, a database operator can ru
 ## Implemented
 
 - Email/password registration, sign-in, database sessions, session expiration and real logout.
+- Google OAuth sign-in and first-login account creation when Google credentials are configured. Production must authorize `https://www.mivanfood.com/api/auth/callback/google`.
 - Persistent profile and dietary/notification preferences using a transaction.
 - Session-owned GET/PATCH `/api/profile`, strict input validation, origin validation and no-store responses.
 - Server-protected customer routes and role-protected admin route group.
@@ -32,4 +33,4 @@ For an existing, deliberately selected staff account, a database operator can ru
 
 Provide a managed PostgreSQL DATABASE_URL with TLS, a unique BETTER_AUTH_SECRET, and the HTTPS canonical BETTER_AUTH_URL. Apply migrations during deployment before serving traffic; never use migrate dev on production. Configure backups and test restores, restrict database access, and keep secrets in the host's secret manager. Account/profile responses must not be cached by a CDN. Do not deploy the embedded database helper.
 
-Email verification/recovery, Google sign-in, staff MFA, wearable data/consent, recommendation/scan services, billing, reward ledgers, and persistent admin management are not implemented in this first backend slice. UI messaging does not claim these work. Reconcile published privacy/security statements with actual deployment controls before launch. Admin access currently uses the same password session with a server role check; staff MFA is a remaining launch requirement.
+Email verification/recovery, staff MFA, wearable data/consent, recommendation/scan services, billing, reward ledgers, and persistent admin management are not implemented in this first backend slice. UI messaging does not claim these work. Reconcile published privacy/security statements with actual deployment controls before launch. Admin access currently uses the same password session with a server role check; staff MFA is a remaining launch requirement.

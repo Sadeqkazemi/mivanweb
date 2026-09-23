@@ -62,7 +62,7 @@ export function AuthModal({ open, onClose }: { open: boolean; onClose: () => voi
 
         <button className="w-full flex items-center justify-center gap-2 rounded-full border border-[var(--hairline-strong)] bg-white py-3 text-[11.5px] font-bold mb-4">
           <GoogleG />
-          Continue with Gmail
+          Continue with Google
         </button>
 
         <div className="flex items-center gap-3 text-muted-2 text-[10px] font-semibold mb-4">

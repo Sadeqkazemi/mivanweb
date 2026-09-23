@@ -27,7 +27,7 @@ export function ContactForm() {
     <form onSubmit={submit} onChange={() => setDraft("")}>
       <fieldset className={styles.topics}><legend>Topic</legend><div>{topics.map((item,i) => <label key={item.name} className={selected === i ? styles.selected : undefined}><input type="radio" name="topic" value={item.name} checked={selected === i} onChange={() => {setSelected(i);setDraft("");}} /><span>{item.name}</span></label>)}</div></fieldset>
       <p className={styles.routing} aria-live="polite">Goes to <a href={`mailto:${topic.email}`}>{topic.email}</a> · {topic.description}</p>
-      <div className={styles.fields}><label>Full name<input name="name" autoComplete="name" placeholder="Sara Ahmadi" required maxLength={120} pattern=".*\S.*" /></label><label>Email<input name="email" type="email" autoComplete="email" placeholder="you@gmail.com" required maxLength={254} /></label></div>
+      <div className={styles.fields}><label>Full name<input name="name" autoComplete="name" required maxLength={120} pattern=".*\S.*" /></label><label>Email<input name="email" type="email" autoComplete="email" placeholder="you@gmail.com" required maxLength={254} /></label></div>
       <label className={styles.message}>Message<textarea name="message" placeholder="Tell us a bit more..." required maxLength={5000} rows={6} /></label>
       <div className={styles.submit}><button type="submit" className={`${shared.button} ${shared.primary}`}>Send message</button><p>By sending you agree to our <Link href="/privacy">Privacy Policy</Link>.</p></div>
       {draft && <div className={styles.draft} role="status"><p>Your message is ready. Open your email app to review and send it. Nothing has been sent yet.</p><a href={draft}>Open email app →</a></div>}

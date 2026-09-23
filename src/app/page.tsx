@@ -2,6 +2,7 @@ import { NavAuthActions } from "@/components/NavAuthActions";
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { GoogleG } from "@/components/Buttons";
 import styles from "./home.module.css";
 
 const stats = [
@@ -99,10 +100,6 @@ const navLinks = [
   ["#pricing", "Pricing"], ["/about", "About"], ["/blog", "Blog"],
 ];
 
-function GoogleIcon() {
-  return <span className={styles.google} aria-hidden="true">G</span>;
-}
-
 function WatchIcon() {
   return (
     <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -146,7 +143,7 @@ export default function Home() {
           <h1 id="hero-title">Eat what truly <span>fits you</span>,<br />anywhere.</h1>
           <p className={styles.heroCopy}>Mivan learns your taste and health, reads your stress and activity from your Apple Watch, and tells you the right thing to eat — at home, traveling, or from a photo of any menu.</p>
           <div className={styles.heroActions}>
-            <Link href="/login" className={`${styles.button} ${styles.primary}`}><GoogleIcon />Continue with Google</Link>
+            <Link href="/login" className={`${styles.button} ${styles.primary}`}><GoogleG size={20} />Continue with Google</Link>
             <a href="#how-it-works" className={`${styles.button} ${styles.outline}`}>See how it works</a>
           </div>
           <div className={styles.heroVisual} aria-label="A personalized Mivan meal recommendation paired with live smartwatch wellness data">
@@ -216,7 +213,7 @@ export default function Home() {
           </article>)}</div>
         </section>
 
-        <section className={`${styles.section} ${styles.cta}`} aria-labelledby="signup-title"><h2 id="signup-title" className={styles.title}>Create your account in seconds.</h2><p>Sign up with Google and start getting food that fits your body, your taste, and your day.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}><GoogleIcon />Continue with Google</Link><small>Free to start · health data encrypted · never sold</small></section>
+        <section className={`${styles.section} ${styles.cta}`} aria-labelledby="signup-title"><h2 id="signup-title" className={styles.title}>Create your account in seconds.</h2><p>Sign up with Google and start getting food that fits your body, your taste, and your day.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}><GoogleG size={20} />Continue with Google</Link><small>Free to start · health data encrypted · never sold</small></section>
       </main>
       <Footer />
     </div>
