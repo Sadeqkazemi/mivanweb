@@ -30,24 +30,26 @@ async function readHiddenPassword() {
       process.stdin.pause();
       process.stdin.removeListener('data', onData);
     };
-    const onData = (key) => {
-      if (key === '\u0003') {
-        cleanup();
-        process.stdout.write('\n');
-        reject(new Error('Cancelled.'));
-        return;
+    const onData = (chunk) => {
+      for (const key of chunk) {
+        if (key === '\u0003') {
+          cleanup();
+          process.stdout.write('\n');
+          reject(new Error('Cancelled.'));
+          return;
+        }
+        if (key === '\r' || key === '\n') {
+          cleanup();
+          process.stdout.write('\n');
+          resolve(value);
+          return;
+        }
+        if (key === '\u007f' || key === '\b') {
+          value = value.slice(0, -1);
+          continue;
+        }
+        value += key;
       }
-      if (key === '\r' || key === '\n') {
-        cleanup();
-        process.stdout.write('\n');
-        resolve(value);
-        return;
-      }
-      if (key === '\u007f' || key === '\b') {
-        value = value.slice(0, -1);
-        return;
-      }
-      value += key;
     };
     process.stdin.on('data', onData);
   });
