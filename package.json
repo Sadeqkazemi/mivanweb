@@ -10,7 +10,7 @@
     "db:generate": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:dev": "node --env-file=.env scripts/local-db.mjs",
-    "db:admin": "node --env-file=.env scripts/admin.mjs",
+    "db:admin": "node --env-file-if-exists=.env scripts/admin.mjs",
     "test:integration": "node --env-file=.env --test tests/backend.test.mjs",
     "postinstall": "prisma generate"
   },
