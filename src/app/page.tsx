@@ -37,10 +37,10 @@ const menuScan = [
 ];
 
 const picks = [
-  { name: "Miso magnesium bowl", tag: "Calms stress · gut-friendly", score: "91%" },
-  { name: "Salmon & greens", tag: "Low-sodium · high protein", score: "88%" },
-  { name: "Herb lentil plate", tag: "High fiber · plant-based", score: "86%" },
-  { name: "Green tea & dates", tag: "Recovery · light energy", score: "84%" },
+  { name: "Miso magnesium bowl", tag: "Calms stress · gut-friendly", score: "91%", image: "/images/food-miso-magnesium-bowl.webp" },
+  { name: "Salmon & greens", tag: "Low-sodium · high protein", score: "88%", image: "/images/food-salmon-greens.webp" },
+  { name: "Herb lentil plate", tag: "High fiber · plant-based", score: "86%", image: "/images/food-herb-lentil-plate.webp" },
+  { name: "Green tea & dates", tag: "Recovery · light energy", score: "84%", image: "/images/food-green-tea-dates.webp" },
 ];
 
 const reviews = [
@@ -152,7 +152,7 @@ export default function Home() {
           <div className={styles.heroVisual} aria-label="A personalized Mivan meal recommendation paired with live smartwatch wellness data">
             <Image
               className={styles.heroBanner}
-              src="/images/mivan-hero-wellness-banner.png"
+              src="/images/mivan-hero-wellness-banner.webp"
               alt="Miso wellness bowl beside a smartwatch with an orange recovery ring"
               fill
               sizes="(max-width: 750px) calc(100vw - 32px), 1100px"
@@ -192,13 +192,13 @@ export default function Home() {
           <div className={styles.recovery}>
             <div className={styles.recoveryTop}><div className={styles.ring} aria-hidden="true" /><div><p className={styles.smallLabel}>Right now</p><h3>Tense</h3><small>stress 78 · busy</small></div></div>
             <p className={styles.smallLabel}>Recovery suggestion</p>
-            <div className={styles.recoveryMeal}><div className={styles.stripe} aria-hidden="true" /><div><h3>Chamomile &amp; oat bowl</h3><small>eases stress · 89%</small></div></div>
+            <div className={styles.recoveryMeal}><div className={styles.recoveryPhoto}><Image src="/images/food-chamomile-oat-bowl.webp" alt="Chamomile and oat bowl with pear and seeds" fill sizes="48px" /></div><div><h3>Chamomile &amp; oat bowl</h3><small>eases stress · 89%</small></div></div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="picks-title">
           <div className={styles.picksHeading}><h2 id="picks-title" className={styles.title}>Picks built around your body.</h2><p className={styles.smallLabel}>Today’s menu</p></div>
-          <div className={styles.picksGrid}>{picks.map(p => <article key={p.name} className={styles.pick}><div className={`${styles.pickImage} ${styles.stripe}`}><span>{p.name.includes("tea") ? "drink photo" : "food photo"}</span></div><div className={styles.pickCopy}><div><strong>{p.name}</strong><span>{p.score}</span></div><p>{p.tag}</p></div></article>)}</div>
+          <div className={styles.picksGrid}>{picks.map(p => <article key={p.name} className={styles.pick}><div className={styles.pickImage}><Image src={p.image} alt={p.name} fill sizes="(max-width: 700px) 50vw, 260px" /></div><div className={styles.pickCopy}><div><strong>{p.name}</strong><span>{p.score}</span></div><p>{p.tag}</p></div></article>)}</div>
         </section>
 
         <section className={styles.section} aria-labelledby="reviews-title">

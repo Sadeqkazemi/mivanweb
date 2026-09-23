@@ -1,33 +1,45 @@
 # Mivan image plan
 
-The homepage hero banner is implemented at `public/images/mivan-hero-wellness-banner.png`.
+## Completed and implemented
 
-## Priority 1 — product experience
+| Page | Placement | Assets |
+| --- | --- | --- |
+| Home | Hero banner | `public/images/mivan-hero-wellness-banner.webp` |
+| Home | Today’s menu | `food-miso-magnesium-bowl.webp`, `food-salmon-greens.webp`, `food-herb-lentil-plate.webp`, `food-green-tea-dates.webp` |
+| Home | Recovery suggestion | `food-chamomile-oat-bowl.webp` |
+| Blog | Featured story and editorial cards | Nine `blog-*.webp` editorial images |
 
-| Page | Placement | Asset | Recommended size | Notes |
-| --- | --- | --- | --- | --- |
-| Home | Today’s menu | 4 food/drink photos | 1200×900 each | Miso bowl, salmon and greens, herb lentil plate, green tea and dates. Keep the same warm editorial lighting as the hero. |
-| Home | Recovery suggestion | 1 compact meal photo | 800×800 | Chamomile and oat bowl, readable at thumbnail size. |
-| Features | Feature blocks | 4 app UI mockups | 1600×1000 each | Taste profile, menu scan results, smartwatch insight, saved recommendations. Use real product screens when available. |
-| How it works | Three steps | 3 app UI mockups | 1600×1000 each | Onboarding form, live health signal, personalized recommendation result. |
-| Download | Phone preview | 1 mobile app screen | 1290×2796 | Export from the real application UI. The QR code must be generated only after the final App Store/Google Play URL is available. |
+All completed images are optimized WebP files. The office address remains in the footer.
 
-## Priority 2 — editorial content
+## Must come from the real application
 
-| Page | Placement | Asset | Recommended size | Notes |
-| --- | --- | --- | --- | --- |
-| Blog | Featured story | 1 editorial image | 1600×1000 | Food, travel and wellness subject matching the featured article. |
-| Blog | Article cards | 6 editorial images | 1200×800 each | One distinct image per article; avoid repeated stock imagery. |
-| Blog article | Article hero | 1 image per article | 1600×900 | Match each article subject and preserve space for captions. |
+These images should be exported from the actual Mivan product. Generated UI would create false product expectations.
 
-## Priority 3 — identity and trust
+| Page | Required screenshot | Recommended export |
+| --- | --- | --- |
+| Features | Daily personalized picks | 1290×2796 phone screen |
+| Features | Menu scan results with allergen and match details | 1290×2796 phone screen |
+| Features | Apple Watch recovery/health insight | Native watch screenshot or approved device mockup with a real app screen |
+| Features | Discover/map experience | 1290×2796 phone screen |
+| Features | Mivan Club/rewards | 1290×2796 phone screen |
+| How it works | Onboarding taste and health questions | 1290×2796 phone screen |
+| How it works | Watch connection or health-signal sync | 1290×2796 phone screen |
+| How it works | Final personalized meal recommendation | 1290×2796 phone screen |
+| Download | App home screen | 1290×2796 phone screen |
+| Blog | “Introducing stress-aware recovery picks” | Real recommendation screen showing the stress-aware result |
+| Blog | “Menus that read themselves” | Real camera scan and nutrition result screens |
 
-| Page | Placement | Asset | Recommended size | Notes |
-| --- | --- | --- | --- | --- |
-| About | Team cards | 4 real portraits | 900×1100 each | Use approved photos of the actual team. Do not use generated faces for named staff. |
-| Contact | Office map | 1 branded map image | 1400×520 | Use the confirmed Mivan HQ location and a licensed map/export. |
-| Home | Reviews | 3 customer avatars | 600×600 each | Optional; use only with customer permission. Initials are safer until approved portraits exist. |
+Capture screens without personal health data, private account details, notifications, or developer overlays. PNG is preferred for source UI captures; the website can optimize them during integration.
+
+## Must come from real people or confirmed sources
+
+| Page | Asset | Reason |
+| --- | --- | --- |
+| About | Four team portraits | Use approved photos of the named team; do not generate faces for real staff. |
+| Contact | Office map | Use the confirmed Mivan HQ pin and a licensed map export. |
+| Home | Customer avatars | Use only with customer permission; initials can remain until approval. |
+| Download | Store badges, links and QR code | Generate these only from the final App Store and Google Play URLs. |
 
 ## Pages that do not need additional imagery
 
-Pricing, FAQ, Privacy Policy and Terms of Service are clearer as typography-led pages. Login and dashboard screens already use interface design rather than decorative photography.
+Pricing, FAQ, Privacy Policy and Terms of Service are clearer as typography-led pages. Login and dashboard screens use interface design rather than decorative photography.

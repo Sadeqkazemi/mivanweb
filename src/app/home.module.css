@@ -90,14 +90,16 @@
 .recovery small { font-size: 12px; color: var(--muted); }
 .recoveryMeal { background: var(--paper); border-radius: 24px; padding: 16px; display: flex; gap: 12px; align-items: center; margin-top: 12px; }
 .stripe { background: repeating-linear-gradient(45deg, #efebe1 0px, #efebe1 12px, #f8f5ed 12px, #f8f5ed 24px); }
-.recoveryMeal .stripe { width: 48px; height: 48px; border-radius: 16px; flex-shrink: 0; }
+.recoveryPhoto { position: relative; overflow: hidden; width: 48px; height: 48px; border-radius: 16px; flex-shrink: 0; }
+.recoveryPhoto img { object-fit: cover; }
 .recoveryMeal small { color: var(--accent-text); font-weight: 600; }
 .picksHeading { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: 56px; }
 .picksHeading .title { max-width: 500px; }
 .picksGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
 .pick { border-radius: 30px; border: 1px solid var(--border-card); background: white; overflow: hidden; }
-.pickImage { height: 152px; position: relative; }
-.pickImage span { position: absolute; bottom: 12px; left: 12px; padding: 3px 9px; border-radius: 20px; background: #ffffffd9; color: #9c988f; font-size: 12px; font-weight: 600; }
+.pickImage { height: 152px; position: relative; overflow: hidden; }
+.pickImage img { object-fit: cover; transition: transform .35s ease; }
+.pick:hover .pickImage img { transform: scale(1.035); }
 .pickCopy { padding: 16px 18px; }
 .pickCopy > div { display: flex; justify-content: space-between; gap: 8px; align-items: center; font-size: 14px; }
 .pickCopy > div > span { color: var(--accent-text); font-size: 12px; font-weight: 600; }

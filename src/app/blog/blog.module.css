@@ -5,6 +5,7 @@
 .featured { display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--border-card); border-radius: 38px; background: white; overflow: hidden; margin-bottom: 64px; }
 .featuredImage { min-height: 340px; position: relative; border: 1px solid #e3dfd6; border-radius: 36px; }
 .featuredImage span, .image span { position: absolute; bottom: 14px; left: 14px; padding: 4px 9px; border-radius: 20px; background: white; color: #989084; font: 12px/1.4 ui-monospace,monospace; }
+.featuredImage img, .image img { object-fit: cover; }
 .featuredCopy { padding: 48px; align-self: center; }
 .category { text-transform: uppercase; color: #eb5019; letter-spacing: .045em; font-size: 13px; font-weight: 600; }
 .featuredCopy h2 { font-size: 36px; letter-spacing: -.035em; line-height: 1.05; font-weight: 700; margin-top: 16px; }

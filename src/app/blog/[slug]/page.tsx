@@ -1,9 +1,9 @@
 import Link from "next/link";
+import Image from "next/image";
 import { PublicNav } from "@/components/PublicNav";
 import { Footer } from "@/components/Footer";
 import { CTASection } from "@/components/CTASection";
 import { Section, Card } from "@/components/Section";
-import { ImageSlot } from "@/components/ImageSlot";
 
 const related = [
   { cat: "Nutrition", title: "Low-sodium does not mean low-flavor", meta: "4 min read" },
@@ -47,7 +47,9 @@ export default function BlogPostPage() {
         </Section>
 
         <Section className="max-w-2xl">
-          <ImageSlot className="h-72 mb-6" label="article hero image" />
+          <div className="relative h-72 mb-6 overflow-hidden rounded-[28px] border border-border-card">
+            <Image src="/images/blog-stress-cortisol-cravings.webp" alt="A recovery meal beside a smartwatch showing an elevated health signal" fill sizes="672px" className="object-cover" priority />
+          </div>
           <div className="prose text-[13.5px] leading-relaxed text-body-text space-y-4">
             <p>
               When we talk about eating well, we usually talk about food in isolation —
