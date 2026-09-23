@@ -5,7 +5,7 @@
 | Page | Placement | Assets |
 | --- | --- | --- |
 | Home | Hero banner | `public/images/mivan-hero-wellness-banner.webp` |
-| Home | Today’s menu | `food-miso-magnesium-bowl.webp`, `food-salmon-greens.webp`, `food-herb-lentil-plate.webp`, `food-green-tea-dates.webp` |
+| Home | Today’s menu | `food-miso-magnesium-bowl-v2.webp`, `food-salmon-greens.webp`, `food-herb-lentil-plate.webp`, `food-green-tea-dates.webp` |
 | Home | Recovery suggestion | `food-chamomile-oat-bowl.webp` |
 | Blog | Featured story and editorial cards | Nine `blog-*.webp` editorial images |
 

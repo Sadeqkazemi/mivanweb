@@ -37,7 +37,7 @@ const menuScan = [
 ];
 
 const picks = [
-  { name: "Miso magnesium bowl", tag: "Calms stress · gut-friendly", score: "91%", image: "/images/food-miso-magnesium-bowl.webp" },
+  { name: "Miso magnesium bowl", tag: "Calms stress · gut-friendly", score: "91%", image: "/images/food-miso-magnesium-bowl-v2.webp" },
   { name: "Salmon & greens", tag: "Low-sodium · high protein", score: "88%", image: "/images/food-salmon-greens.webp" },
   { name: "Herb lentil plate", tag: "High fiber · plant-based", score: "86%", image: "/images/food-herb-lentil-plate.webp" },
   { name: "Green tea & dates", tag: "Recovery · light energy", score: "84%", image: "/images/food-green-tea-dates.webp" },
