@@ -103,6 +103,26 @@ function GoogleIcon() {
   return <span className={styles.google} aria-hidden="true">G</span>;
 }
 
+function WatchIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M9 2h6l1 4.1A5.9 5.9 0 0 1 18 10.5v3a5.9 5.9 0 0 1-2 4.4L15 22H9l-1-4.1a5.9 5.9 0 0 1-2-4.4v-3a5.9 5.9 0 0 1 2-4.4L9 2Z" />
+      <rect x="8" y="7" width="8" height="10" rx="3" />
+      <path d="m10.1 12 1.3 1.4 2.8-3" />
+    </svg>
+  );
+}
+
+function MealIcon() {
+  return (
+    <svg viewBox="0 0 32 32" aria-hidden="true">
+      <path d="M9.5 12.2c-1.3-1.7.9-2.4.9-4.1 0-1-.6-1.6-1-2.1M16 12.2c-1.3-1.7.9-2.4.9-4.1 0-1-.6-1.6-1-2.1M22.5 12.2c-1.3-1.7.9-2.4.9-4.1 0-1-.6-1.6-1-2.1" />
+      <path d="M6 15.5h20c-.5 6.3-4.1 10-10 10s-9.5-3.7-10-10Z" />
+      <path d="M9 26h14" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <div className={styles.landing}>
@@ -129,9 +149,17 @@ export default function Home() {
             <Link href="/login" className={`${styles.button} ${styles.primary}`}><GoogleIcon />Continue with Google</Link>
             <a href="#how-it-works" className={`${styles.button} ${styles.outline}`}>See how it works</a>
           </div>
-          <div className={styles.heroVisual} aria-label="Preview of personalized meal recommendations">
-            <div className={styles.watchBadge}><i aria-hidden="true" />Watch live · stress 78</div>
-            <div className={styles.mealBadge}><i aria-hidden="true" /><div><strong>Miso magnesium bowl</strong><br /><span>91% match · calms stress</span></div></div>
+          <div className={styles.heroVisual} aria-label="A personalized Mivan meal recommendation paired with live smartwatch wellness data">
+            <Image
+              className={styles.heroBanner}
+              src="/images/mivan-hero-wellness-banner.png"
+              alt="Miso wellness bowl beside a smartwatch with an orange recovery ring"
+              fill
+              sizes="(max-width: 750px) calc(100vw - 32px), 1100px"
+              priority
+            />
+            <div className={styles.watchBadge}><span className={styles.watchIcon}><WatchIcon /></span><span><small>Live signal</small>Stress 78</span></div>
+            <div className={styles.mealBadge}><span className={styles.mealIcon}><MealIcon /></span><div><small>Today’s best match</small><strong>Miso magnesium bowl</strong><span>91% match · calms stress</span></div></div>
           </div>
           <div className={styles.brands}><span>Works with every smartwatch</span><span>Apple Watch</span><span>Wear OS</span><span>Fitbit</span><span>Garmin</span></div>
         </section>
