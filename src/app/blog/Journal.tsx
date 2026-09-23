@@ -10,7 +10,7 @@ const posts = [
  { slug: "stress-aware-picks", cat: "Product", title: "Introducing stress-aware recovery picks", excerpt: "Your Apple Watch now shapes what we recommend.", meta: "3 min read · May 2026" },
  { slug: "diabetes-dining-out", cat: "Nutrition", title: "Eating with diabetes when you dine out", excerpt: "A simple framework for safer restaurant choices.", meta: "6 min read · April 2026", image: "/images/blog-diabetes-dining-out.webp" },
  { slug: "3-million-meals", cat: "Research", title: "What 3 million matched meals taught us", excerpt: "Patterns in how people actually eat on the move.", meta: "7 min read · April 2026", image: "/images/blog-three-million-meals-v2.webp" },
- { slug: "smartwatch-recovery-loop", cat: "Travel", title: "Smartwatch and food: the recovery loop", excerpt: "Why your body signals belong on your plate.", meta: "4 min read · March 2026", image: "/images/blog-smartwatch-recovery-loop-v3.webp" },
+ { slug: "smartwatch-recovery-loop", cat: "Travel", title: "Smartwatch and food: the recovery loop", excerpt: "Why your body signals belong on your plate.", meta: "4 min read · March 2026", image: "/images/blog-smartwatch-recovery-loop-v4.webp" },
  { slug: "protein-timing", cat: "Nutrition", title: "The protein timing myth, settled", excerpt: "When you eat protein matters less than you think.", meta: "5 min read · March 2026", image: "/images/blog-protein-timing-v2.webp" },
  { slug: "menus-read-themselves", cat: "Product", title: "Menus that read themselves", excerpt: "Inside the scanner that turns photos into nutrition.", meta: "4 min read · February 2026" },
  { slug: "sleep-debt-appetite", cat: "Research", title: "How sleep debt reshapes appetite", excerpt: "", meta: "", image: "/images/blog-sleep-debt-appetite-v3.webp" },
