@@ -1,3 +1,7 @@
+mivanfood.com {
+    redir https://www.mivanfood.com{uri} permanent
+}
+
 www.mivanfood.com {
     encode zstd gzip
     reverse_proxy web:3000 {
