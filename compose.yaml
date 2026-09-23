@@ -32,6 +32,8 @@ services:
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?Set BETTER_AUTH_SECRET}
       GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
+      AUTH_EMAIL_FROM: "${AUTH_EMAIL_FROM:-Mivan <info@mivanfood.com>}"
       HOSTNAME: 0.0.0.0
     depends_on:
       migrate:

@@ -8,14 +8,14 @@ const fields = z.object({
 const defaults = { phone: "", location: "", lowSodium: false, diabetesAware: false, plantForward: false, dailyPicks: false, clubUpdates: false };
 export async function GET() {
   const session = await getSession();
-  if (!session) return Response.json({ error: "Sign in required" }, { status: 401 });
+  if (!session || !session.user.emailVerified) return Response.json({ error: "Verified sign in required" }, { status: 401 });
   const profile = await db.profile.findUnique({ where: { userId: session.user.id } });
   return Response.json({ ...defaults, ...profile, name: session.user.name, email: session.user.email, createdAt: session.user.createdAt }, { headers: { "Cache-Control": "private, no-store" } });
 }
 export async function PATCH(request: Request) {
   if (request.headers.get("origin") !== new URL(process.env.BETTER_AUTH_URL!).origin) return Response.json({ error: "Invalid origin" }, { status: 403 });
   const session = await getSession();
-  if (!session) return Response.json({ error: "Sign in required" }, { status: 401 });
+  if (!session || !session.user.emailVerified) return Response.json({ error: "Verified sign in required" }, { status: 401 });
   if (Number(request.headers.get("content-length") ?? 0) > 8192) return Response.json({ error: "Request too large" }, { status: 413 });
   const body = await request.text();
   if (body.length > 8192) return Response.json({ error: "Request too large" }, { status: 413 });

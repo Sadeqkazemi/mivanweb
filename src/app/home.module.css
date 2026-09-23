@@ -177,9 +177,14 @@
 @media (prefers-reduced-motion: reduce) { .button { transition: none; }.button:hover { transform: none; } }
 .authActions { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
 .authActions .button { white-space: nowrap; }
+.authPending { width:180px; height:44px; border-radius:999px; background:linear-gradient(90deg,#f2ece4,#fff,#f2ece4); background-size:200% 100%; animation:authPending 1.2s linear infinite; }
+.accountChip { display:flex; align-items:center; gap:8px; max-width:150px; color:var(--label); font-size:13px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.accountChip > span { display:grid; place-items:center; width:30px; height:30px; flex:0 0 30px; border-radius:50%; background:#2a211a; color:#ef9a50; font-size:12px; }
+@keyframes authPending { to { background-position:-200% 0; } }
 @media (min-width:701px) and (max-width:1000px) { .nav { gap: 14px; }.navLinks { gap: 14px; font-size: 13px; }.authActions { gap: 9px; }.nav .authActions .button { padding-inline: 15px; } }
 @media (max-width:700px) { .authActions { gap: 7px; }.nav { gap: 7px; }.nav .authActions .button { padding: 9px 12px; min-height: 38px; }.mobileMenu summary { padding: 5px; } }
 @media (max-width:380px) { .nav { padding-inline: 10px; }.nav .brand img { width: 62px; }.nav .authActions .button { font-size: 11px; padding-inline: 9px; } }
+@media (max-width:520px) { .accountChip { display:none; }.authPending { width:96px; } }
 
 /* Shared public-site patterns */
 .container { width: min(var(--content-width), calc(100% - 49.92px)); }
