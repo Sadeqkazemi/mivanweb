@@ -11,7 +11,7 @@ Next.js App Router + React, PostgreSQL, Prisma 6.19.3 and Better Auth. Node 22.1
 5. `npm run dev`, then open the exact origin in BETTER_AUTH_URL (default http://127.0.0.1:3000).
 6. Register through `/login`. Passwords require at least 12 characters. No seeded user or administrator password exists.
 
-For an existing, deliberately selected staff account, a database operator can run `npm run db:admin -- email@example.com`. Only use this for authorized staff. The signup API never accepts a role. Admin pages remain explicitly labelled previews; their sample charts and local CRUD are not live administration services.
+For an existing, deliberately selected staff account, a database operator can run `npm run db:admin -- email@example.com`. The command securely prompts for a new password, adds or updates the credential login, grants the admin role, and revokes existing sessions. Passwords must be 12–128 characters. Only use this for authorized staff. The signup API never accepts a role. Admin pages remain explicitly labelled previews; their sample charts and local CRUD are not live administration services.
 
 ## Implemented
 

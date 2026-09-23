@@ -11,3 +11,21 @@
 .grid4,.quarterCards { grid-template-columns:repeat(2,minmax(0,1fr)); }.shell button:not(.toggle) { min-height:44px; }.shell button[aria-label="Close dialog"] { min-width:44px; }.shell p { max-width:64ch; }
 @media(min-width:1800px) { .grid4,.quarterCards { grid-template-columns:repeat(4,minmax(0,1fr)); } }
 @media(max-width:650px) { .quarterCards { grid-template-columns:1fr; } }
+
+.signout { display:flex; align-items:center; gap:10px; width:100%; min-height:64px; margin-top:auto; padding:9px 10px; border:1px solid #45392e; border-radius:19px; background:linear-gradient(135deg,#2d251e,#201a15); color:#f8f0e5; text-align:left; box-shadow:0 14px 28px -20px #000; transition:border-color .18s,background .18s,transform .18s; }
+.signout:hover { border-color:#8d5738; background:linear-gradient(135deg,#3a281d,#281d17); transform:translateY(-1px); }
+.signout:disabled { cursor:wait; opacity:.72; transform:none; }
+.signoutIcon { display:grid; place-items:center; width:36px; height:36px; flex:0 0 36px; border-radius:12px; background:#ffffff0d; color:#ee8b50; }
+.signoutIcon svg { width:20px; height:20px; fill:none; stroke:currentColor; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; }
+.signoutText { display:grid; gap:2px; min-width:0; }
+.signoutText strong { font-size:13px; line-height:1.2; }
+.signoutText small { color:#9f9385; font-size:10px; line-height:1.2; }
+.signoutArrow { margin-left:auto; color:#817364; font-size:16px; }
+.signoutSpinner { width:16px; height:16px; border:2px solid #ffffff40; border-top-color:#ee8b50; border-radius:50%; animation:signoutSpin .7s linear infinite; }
+.signoutError { display:block; margin:7px 5px 0; color:#f2a07b; font-size:10px; line-height:1.35; }
+.dropdownSignout { display:flex; align-items:center; gap:10px; width:calc(100% - 20px); min-height:58px; margin:4px 10px 12px; padding:10px; border:1px solid #eadfd5; border-radius:17px; background:#fff8f4; color:#542819; text-align:left; }
+.dropdownSignout:hover { background:#fff0e8; border-color:#e4bca8; }
+.dropdownSignout .signoutIcon { background:#f7dfd2; color:#cb542b; }
+.dropdownSignout .signoutText small { color:#9a7769; }
+.dropdownSignout .signoutArrow { color:#b7775f; }
+@keyframes signoutSpin { to { transform:rotate(360deg); } }
