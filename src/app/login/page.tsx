@@ -12,8 +12,9 @@ export default function LoginPage() {
  const [mode, setMode] = useState<"login" | "signup">("login");
  const [notice, setNotice] = useState("");
  const [busy, setBusy] = useState(false);
+ const [showPassword, setShowPassword] = useState(false);
  const isLogin = mode === "login";
- function changeMode(next: "login" | "signup") { setMode(next); setNotice(""); }
+ function changeMode(next: "login" | "signup") { setMode(next); setNotice(""); setShowPassword(false); }
  async function continueWithGoogle() {
  setBusy(true); setNotice("");
  const destination = new URLSearchParams(window.location.search).get("next");
@@ -61,7 +62,7 @@ export default function LoginPage() {
     <form onSubmit={submit}>
      {!isLogin && <label className={styles.field}>Full name<input name="name" maxLength={100} autoComplete="name" required /></label>}
      <label className={styles.field}>Email<input name="email" type="email" autoComplete="email" placeholder="you@gmail.com" required /></label>
-     <label className={styles.field}>Password<input name="password" type="password" autoComplete={isLogin ? "current-password" : "new-password"} placeholder="••••••••" required minLength={isLogin ? undefined : 12} maxLength={128} /></label>
+     <label className={styles.field}>Password<span className={styles.passwordWrap}><input name="password" type={showPassword ? "text" : "password"} autoComplete={isLogin ? "current-password" : "new-password"} placeholder="••••••••" required minLength={isLogin ? undefined : 12} maxLength={128} /><button type="button" className={styles.passwordToggle} aria-label={showPassword ? "Hide password" : "Show password"} aria-pressed={showPassword} onClick={() => setShowPassword(value => !value)}>{showPassword ? <EyeOffIcon /> : <EyeIcon />}</button></span></label>
      <div className={styles.options}><label><input type="checkbox" name="remember" />Remember me</label><button type="button" onClick={() => setNotice("Password recovery is not connected yet.")}>Forgot password?</button></div>
      <button type="submit" disabled={busy} className={styles.submit}>{busy ? "Please wait…" : isLogin ? "Sign in" : "Create account"}</button>
     </form>
@@ -71,4 +72,12 @@ export default function LoginPage() {
    </div>
   </section>
  </main>;
+}
+
+function EyeIcon() {
+ return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 12s3.5-6 9.5-6 9.5 6 9.5 6-3.5 6-9.5 6-9.5-6-9.5-6Z" /><circle cx="12" cy="12" r="2.75" /></svg>;
+}
+
+function EyeOffIcon() {
+ return <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 3l18 18" /><path d="M10.6 6.15A10.9 10.9 0 0 1 12 6c6 0 9.5 6 9.5 6a16.7 16.7 0 0 1-2.25 2.9M15.5 17.35A10.5 10.5 0 0 1 12 18c-6 0-9.5-6-9.5-6a16.2 16.2 0 0 1 3.1-3.75M9.9 9.9a3 3 0 0 0 4.2 4.2" /></svg>;
 }
