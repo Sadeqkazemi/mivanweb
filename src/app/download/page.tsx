@@ -1,3 +1,4 @@
+import { MobileNavMenu } from "@/components/MobileNavMenu";
 import { NavAuthActions } from "@/components/NavAuthActions";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,7 +20,7 @@ export default function DownloadPage() {
         <Link href="/" className={shared.brand} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority /></Link>
         <nav className={shared.navLinks} aria-label="Main navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/download" ? "page" : undefined} className={href === "/download" ? featureStyles.active : undefined}>{label}</Link>)}</nav>
         <NavAuthActions />
-        <details className={shared.mobileMenu}><summary aria-label="Toggle navigation">☰</summary><nav aria-label="Mobile navigation">{links.map(([label, href]) => <Link key={href} href={href} aria-current={href === "/download" ? "page" : undefined}>{label}</Link>)}</nav></details>
+        <MobileNavMenu links={links} activeHref="/download" />
       </header>
       <main className={shared.container}>
         <section id="download-app" className={styles.hero} aria-labelledby="download-title">

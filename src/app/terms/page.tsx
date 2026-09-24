@@ -1,3 +1,4 @@
+import { MobileNavMenu } from "@/components/MobileNavMenu";
 import { NavAuthActions } from "@/components/NavAuthActions";
 import type { Metadata } from "next";
 import Image from "next/image";
@@ -28,7 +29,7 @@ export default function TermsPage() {
       <Link href="/" className={shared.brand} aria-label="Mivan home"><Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority /></Link>
       <nav className={shared.navLinks} aria-label="Main navigation">{links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav>
       <NavAuthActions />
-      <details className={shared.mobileMenu}><summary aria-label="Toggle navigation">☰</summary><nav aria-label="Mobile navigation">{links.map(([label, href]) => <Link key={href} href={href}>{label}</Link>)}</nav></details>
+      <MobileNavMenu links={links} />
     </header>
     <main className={`${shared.container} ${styles.page}`}>
       <header className={styles.heading}><div><p className={styles.eyebrow}>Legal agreement · Mivan FZ-LLC</p><h1>Terms of Service</h1></div><dl className={styles.version}><div><dt>Version</dt><dd>2.0</dd></div><div><dt>Updated</dt><dd><time dateTime="2026-09-22">22 Sep 2026</time></dd></div><div><dt>Effective</dt><dd><time dateTime="2026-10-01">1 Oct 2026</time></dd></div></dl></header>

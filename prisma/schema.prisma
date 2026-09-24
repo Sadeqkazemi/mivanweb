@@ -8,19 +8,36 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String    @unique
-  emailVerified Boolean   @default(false)
-  image         String?
-  role          String    @default("user")
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
-  profile       Profile?
+  id               String      @id
+  name             String
+  email            String      @unique
+  emailVerified    Boolean     @default(false)
+  image            String?
+  role             String      @default("user")
+  twoFactorEnabled Boolean     @default(false)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  sessions         Session[]
+  accounts         Account[]
+  profile          Profile?
+  twoFactors       TwoFactor[]
 
   @@map("user")
+}
+
+model TwoFactor {
+  id                      String    @id
+  secret                  String
+  backupCodes             String
+  userId                  String
+  verified                Boolean   @default(true)
+  failedVerificationCount Int       @default(0)
+  lockedUntil             DateTime?
+  user                    User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([secret])
+  @@index([userId])
+  @@map("twoFactor")
 }
 
 model Session {

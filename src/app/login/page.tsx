@@ -173,7 +173,7 @@ export default function LoginPage() {
             <button type="submit" disabled={busy} className={styles.submit}>{busy ? "Please wait…" : isLogin ? "Sign in" : "Create account & send code"}</button>
           </form>
           <p className={styles.switch}>{isLogin ? "New to Mivan? " : "Already have an account? "}<button type="button" onClick={() => changeMode(isLogin ? "signup" : "login")}>{isLogin ? "Create account" : "Sign in"}</button></p>
-          <div className={styles.staff}><Link href="/admin/login">Staff &amp; admin sign in →</Link></div>
+          <div className={styles.staff}><Link href="/admin/login">Staff &amp; admin sign in</Link></div>
         </>}
         {notice && <p className={styles.notice} role="status">{notice}</p>}
       </div>

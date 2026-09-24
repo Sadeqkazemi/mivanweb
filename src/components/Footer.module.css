@@ -9,11 +9,14 @@
 .brand { max-width: 340px; }
 .logo { display: inline-block; }
 .logo img { width: 84px; height: 42px; object-fit: contain; }
+.mobileKicker { display:none; }
 .description { margin-top: 20px; font-size: 15px; line-height: 24px; font-weight: 400; }
 .email { display: inline-block; margin-top: 24px; color: var(--accent-light); font-size: 15px; font-weight: 700; }
+.email span { display:none; }
 .address { display: flex; gap: 10px; margin-top: 16px; color: #948267; font-style: normal; font-size: 14px; line-height: 21px; }
 .address svg { color: #f5a022; flex-shrink: 0; margin-top: 2px; }
 .groups { display: grid; grid-template-columns: repeat(3, auto); gap: 64px; align-content: start; }
+.mobileLinks { display:none; }
 .groups h2 { font-family: inherit; font-size: 13px; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; color: #8f806b; margin: 0 0 16px; line-height: 20px; }
 .groups ul { list-style: none; padding: 0; margin: 0; }
 .groups li { font-size: 15px; line-height: 22px; margin-bottom: 8px; }
@@ -25,14 +28,26 @@
   .main { gap: 40px; }.groups { gap: 28px; }.brand { max-width: 310px; }
 }
 @media (max-width: 700px) {
-  .container { width: calc(100% - 40px); }
-  .main { flex-direction: column; gap: 40px; padding-top: 44px; padding-bottom: 32px; }
-  .brand { max-width: 340px; }.groups { grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  .groups h2 { font-size: 11px; }.groups li { font-size: 13px; }
-  .bottom { font-size: 12px; padding: 18px 0; }
+  .footer { position:relative; overflow:hidden; padding:0; border-top:0; background:#17110e; }
+  .footer::before { content:""; position:absolute; top:-160px; right:-150px; width:340px; height:340px; border:1px solid #f08a4b24; border-radius:50%; box-shadow:0 0 0 52px #f08a4b0b; pointer-events:none; }
+  .container { width:100%; }
+  .main { position:relative; z-index:1; flex-direction:column; gap:0; padding:27px 24px 18px; background:transparent; }
+  .brand { display:grid; grid-template-columns:1fr; align-items:start; max-width:none; padding:0; border:0; }
+  .logo { grid-column:1; }
+  .logo img { width:68px; height:33px; }
+  .mobileKicker { display:block; grid-column:1; justify-self:start; margin-top:4px; color:#a99a8f; font-size:8px; font-weight:800; line-height:1.35; letter-spacing:.14em; text-transform:uppercase; }
+  .description { grid-column:1/-1; max-width:280px; margin-top:18px; color:#f8eee7; font-size:18px; font-weight:550; letter-spacing:-.02em; line-height:1.35; }
+  .email { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; margin-top:18px; padding:0; border:0; color:#f39a5d; font-size:11px; }
+  .email span { display:block; color:#a99a8f; font-size:8px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
+  .address { display:none; }
+  .groups,.fullGroups { display:none; }
+  .mobileLinks { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:12px; margin-top:24px; padding:16px 0; border-top:1px solid #ffffff18; border-bottom:1px solid #ffffff18; color:#d9cec7; font-size:10px; font-weight:650; }
+  .bottom { position:relative; z-index:1; margin:0 24px; padding:15px 0 18px; border:0; color:#80736b; background:transparent; font-size:8px; }
+  .bottom .container { display:flex; justify-content:space-between; gap:14px; }
 }
 @media (prefers-reduced-motion: reduce) { .footer a { transition: none; } }
 .groups a[aria-current="page"] { color: var(--accent-light); font-weight: 700; }
-.fullGroups { grid-template-columns: repeat(4, auto); } @media(max-width:700px) { .fullGroups { grid-template-columns: repeat(2, 1fr); row-gap: 28px; } }
+.fullGroups { grid-template-columns: repeat(4, auto); } @media(max-width:700px) { .fullGroups { grid-template-columns:repeat(2,minmax(0,1fr)); row-gap:27px; } }
 .footer { background: var(--footer); color: var(--footer-link); border-top-color: var(--accent); }.container { width:min(var(--content-width),calc(100% - 49.92px)); }.description { color:var(--on-dark-2); }.email { color:var(--accent-light); }.address { color:var(--on-dark-muted); }.groups h2,.bottom { color:var(--footer-label); }.bottom { border-color:var(--border-dark); }.groups a[aria-current="page"],.groups a:hover { color:var(--accent-light); }
 @media(max-width:750px) { .container { width:calc(100% - 40px); } }
+@media(max-width:700px) { .footer .main { width:100%; }.footer .bottom .container { width:100%; } }

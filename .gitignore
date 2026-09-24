@@ -43,6 +43,7 @@ next-env.d.ts
 !.env.example
 /work/
 /data/
+/outputs/
 work-*.cjs
 /public/color-check.html
 /public/color-reference.png

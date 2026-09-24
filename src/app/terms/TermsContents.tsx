@@ -16,6 +16,6 @@ export function TermsContents({ items }: { items: { id: string; label: string }[
     <ol>{items.map(({ id, label }, i) => <li key={id}>
       <a href={`#${id}`} className={active === id ? styles.highlight : undefined} aria-current={active === id ? "location" : undefined}><span>{i + 1}</span>{label}</a>
     </li>)}</ol>
-    <Link className={styles.privacyLink} href="/privacy">Privacy Policy →</Link>
+      <Link className={styles.privacyLink} href="/privacy">Privacy Policy</Link>
   </nav>;
 }

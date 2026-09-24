@@ -45,3 +45,34 @@ test('authentication, ownership, validation and persistent profile',async()=>{
  assert.equal((await request('/api/profile',{cookie})).status,401);
  }finally{await db.user.deleteMany({where:{email:{in:created}}});await db.$disconnect();}
 });
+
+test('administrator password sign-in requires and verifies an email OTP',async()=>{
+ const localDb=new PrismaClient();
+ try{
+  const account=await signup();
+  await request('/api/auth/sign-out',{cookie:account.cookie,body:{}});
+  await localDb.user.update({where:{email:account.email},data:{role:'admin',twoFactorEnabled:true}});
+
+  const passwordStep=await request('/api/auth/sign-in/email',{body:{email:account.email,password:'Secure-test-password-2026!'}});
+  assert.equal(passwordStep.status,200,await passwordStep.clone().text());
+  const passwordData=await passwordStep.clone().json();
+  assert.equal(passwordData.twoFactorRedirect,true,'admin password must lead to a second factor');
+  const pendingCookie=passwordStep.headers.getSetCookie().map(x=>x.split(';')[0]).join('; ');
+  assert.match(pendingCookie,/two_factor/,'password step must only issue a pending two-factor cookie');
+  assert.equal((await request('/admin',{cookie:pendingCookie})).status,307,'pending two-factor cookie must not authorize admin access');
+
+  const sent=await request('/api/auth/two-factor/send-otp',{cookie:pendingCookie,body:{trustDevice:false}});
+  assert.equal(sent.status,200,await sent.clone().text());
+  const challenge=await localDb.verification.findFirst({where:{identifier:{startsWith:'2fa-otp-'}},orderBy:{createdAt:'desc'}});
+  assert.ok(challenge,'second-factor challenge must be stored');
+  const otp=challenge.value.slice(0,challenge.value.lastIndexOf(':'));
+  const verified=await request('/api/auth/two-factor/verify-otp',{cookie:pendingCookie,body:{code:otp,trustDevice:false}});
+  assert.equal(verified.status,200,await verified.clone().text());
+  const sessionCookie=verified.headers.getSetCookie().map(x=>x.split(';')[0]).join('; ');
+  assert.ok(sessionCookie,'verified OTP must create the administrator session');
+  assert.equal((await request('/admin',{cookie:sessionCookie})).status,200);
+ }finally{
+  await localDb.user.deleteMany({where:{email:{in:created}}});
+  await localDb.$disconnect();
+ }
+});

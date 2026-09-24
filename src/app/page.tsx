@@ -1,4 +1,6 @@
 import { NavAuthActions } from "@/components/NavAuthActions";
+import { MobileNavMenu } from "@/components/MobileNavMenu";
+import { UserCtaBanner } from "@/components/UserCtaBanner";
 import Image from "next/image";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
@@ -96,8 +98,8 @@ const plans = [
 ];
 
 const navLinks = [
-  ["/features", "Features"], ["#how-it-works", "How it works"],
-  ["#pricing", "Pricing"], ["/about", "About"], ["/blog", "Blog"],
+  ["Features", "/features"], ["How it works", "#how-it-works"],
+  ["Pricing", "#pricing"], ["About", "/about"], ["Blog", "/blog"],
 ];
 
 function WatchIcon() {
@@ -120,6 +122,15 @@ function MealIcon() {
   );
 }
 
+function ScanIcon() {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M8 3H5a2 2 0 0 0-2 2v3M16 3h3a2 2 0 0 1 2 2v3M21 16v3a2 2 0 0 1-2 2h-3M8 21H5a2 2 0 0 1-2-2v-3" />
+      <path d="M7 12h10M9 9.5h6M9 14.5h6" />
+    </svg>
+  );
+}
+
 export default function Home() {
   return (
     <div className={styles.landing}>
@@ -128,15 +139,10 @@ export default function Home() {
           <Image src="/images/mivan-logo.png" alt="Mivan" width={92} height={44} priority />
         </Link>
         <nav aria-label="Main navigation" className={styles.navLinks}>
-          {navLinks.map(([href, label]) => <Link href={href} key={label}>{label}</Link>)}
+          {navLinks.map(([label, href]) => <Link href={href} key={label}>{label}</Link>)}
         </nav>
         <NavAuthActions />
-        <details className={styles.mobileMenu}>
-          <summary aria-label="Toggle navigation">☰</summary>
-          <nav aria-label="Mobile navigation">
-            {navLinks.map(([href, label]) => <Link href={href} key={label}>{label}</Link>)}
-          </nav>
-        </details>
+        <MobileNavMenu links={navLinks} />
       </header>
       <main className={styles.container}>
         <section className={styles.hero} aria-labelledby="hero-title">
@@ -158,29 +164,70 @@ export default function Home() {
             <div className={styles.watchBadge}><span className={styles.watchIcon}><WatchIcon /></span><span><small>Live signal</small>Stress 78</span></div>
             <div className={styles.mealBadge}><span className={styles.mealIcon}><MealIcon /></span><div><small>Today’s best match</small><strong>Miso magnesium bowl</strong><span>91% match · calms stress</span></div></div>
           </div>
-          <div className={styles.brands}><span>Works with every smartwatch</span><span>Apple Watch</span><span>Wear OS</span><span>Fitbit</span><span>Garmin</span></div>
+          <div className={styles.brands} aria-label="Supported smartwatches">
+            <span className={styles.brandLead}><small>WORKS WITH</small><strong>Your watch, your choice</strong></span>
+            <span className={styles.brandDevice}><i>AW</i>Apple Watch</span>
+            <span className={styles.brandDevice}><i>W</i>Wear OS</span>
+            <span className={styles.brandDevice}><i>F</i>Fitbit</span>
+            <span className={styles.brandDevice}><i>G</i>Garmin</span>
+          </div>
         </section>
 
         <section className={`${styles.section} ${styles.why}`} aria-labelledby="why-title">
           <div className={styles.whyIntro}>
-            <div><p className={styles.eyebrow}>Why Mivan</p><h2 id="why-title" className={styles.title}>Millions travel, and can’t find food that fits them.</h2></div>
+            <div className={styles.whyStory}>
+              <div>
+                <p className={styles.eyebrow}>Why Mivan</p>
+                <h2 id="why-title" className={styles.title}>Millions travel, and can’t find food that <span>fits them.</span></h2>
+              </div>
+              <div className={styles.whyJourney} aria-label="Mivan turns local context and live health signals into a personalized meal match">
+                <div className={styles.whyJourneyTop}><span>ANYWHERE YOU LAND</span><strong>Your match travels with you</strong></div>
+                <div className={styles.whyRoute} aria-hidden="true">
+                  <span className={styles.whyCity}>DXB</span><i /><span className={styles.whyPulse}>✦</span><i /><span className={styles.whyMatch}><MealIcon />91% MATCH</span>
+                </div>
+              </div>
+            </div>
             <div className={styles.whyCopy}>
+              <p className={styles.whyCopyLabel}>FOOD SHOULD FIT THE PERSON</p>
+              <h3>Your needs don’t stop at the border.</h3>
               <p>Every year millions of people travel for work and leisure — and struggle to find food that suits their taste, diet, and health in an unfamiliar place. Meanwhile, modern life loads our days with stress and pressure that quietly shape what our bodies actually need.</p>
               <p>Mivan was built to close that gap. We learn your palate, understand your conditions and diet, read your day through your smartwatch, and recommend the right meal for your exact location and moment — even from a photo of a menu you’ve never seen.</p>
+              <div className={styles.whySignals}><span>Taste</span><span>Health</span><span>Live signals</span></div>
             </div>
           </div>
-          <div className={styles.stats}>{stats.map(s => <div className={styles.stat} key={s.label}><strong>{s.value}</strong><span>{s.label}</span></div>)}</div>
+          <div className={styles.stats}>{stats.map((s, index) => <div className={styles.stat} key={s.label}><div className={styles.statTop}><span>{String(index + 1).padStart(2, "0")}</span><i /></div><strong>{s.value}</strong><small>{s.label}</small></div>)}</div>
         </section>
 
         <section id="how-it-works" className={styles.section} aria-labelledby="steps-title">
           <div className={styles.sectionHeading}><p className={styles.eyebrow}>How it works</p><h2 id="steps-title" className={styles.title}>Three steps to the right meal.</h2></div>
-          <div className={styles.threeGrid}>{steps.map(s => <article className={styles.step} key={s.n}><div className={styles.stepNumber}>{s.n}</div><h3>{s.title}</h3><p>{s.body}</p></article>)}</div>
+          <div className={`${styles.threeGrid} ${styles.swipeRail}`}>{steps.map(s => <article className={styles.step} key={s.n}><div className={styles.stepNumber}>{s.n}</div><h3>{s.title}</h3><p>{s.body}</p></article>)}</div>
         </section>
 
         <section className={`${styles.section} ${styles.scan}`} aria-labelledby="scan-title">
-          <div className={styles.scanCopy}><p className={styles.eyebrow}>Menu scan</p><h2 id="scan-title" className={styles.title}>Snap any menu.<br />Know what fits you.</h2><p>Point your camera at a restaurant menu. Mivan reads every dish and ranks it against your diet, conditions and taste — so you order with confidence in any city.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}>Try it free</Link></div>
-          <div className={styles.menu}><div className={styles.menuHeader}><h3>Saffron House — menu</h3><span>12 SCANNED</span></div>
-            {menuScan.map((m, i) => <div className={styles.menuRow} key={m.name}><div><strong>{m.name}</strong><p>{m.tag}</p></div><span className={`${styles.score} ${i === 2 ? styles.medium : i === 3 ? styles.low : ""}`}>{m.score}</span></div>)}
+          <div className={styles.scanCopy}>
+            <div className={styles.scanIcon}><ScanIcon /></div>
+            <p className={styles.eyebrow}>Menu intelligence</p>
+            <h2 id="scan-title" className={styles.title}>One photo.<br /><span>Your best choice.</span></h2>
+            <p>Point your camera at any restaurant menu. Mivan understands every dish, compares it with your taste and health profile, and ranks the options in seconds.</p>
+            <div className={styles.scanBenefits}><span>Any language</span><span>Personalized ranking</span><span>Instant result</span></div>
+              <Link href="/login" className={`${styles.button} ${styles.primary}`}>Scan your first menu</Link>
+          </div>
+          <div className={styles.menu}>
+            <div className={styles.menuHeader}>
+              <div><span className={styles.menuLabel}>AI MENU ANALYSIS</span><h3>Saffron House</h3><p>Dubai · Dinner menu</p></div>
+              <div className={styles.menuScanState}><i /><span><strong>Complete</strong><small>12 dishes scanned</small></span></div>
+            </div>
+            <div className={styles.menuInsight}><div><small>TOP RECOMMENDATION</small><strong>Built around you</strong></div><span>Health + taste matched</span></div>
+            <div className={styles.menuList}>
+              {menuScan.map((m, i) => <div className={`${styles.menuRow} ${i === 0 ? styles.menuRowBest : ""}`} key={m.name}>
+                <span className={styles.menuRank}>{String(i + 1).padStart(2, "0")}</span>
+                <div className={styles.menuDish}>
+                  <div className={styles.menuDishTop}><strong>{m.name}</strong><span className={`${styles.score} ${i === 2 ? styles.medium : i === 3 ? styles.low : ""}`}>{m.score}</span></div>
+                  <p>{m.tag}</p>
+                  <div className={`${styles.matchBar} ${i === 2 ? styles.mediumBar : i === 3 ? styles.lowBar : ""}`} aria-hidden="true"><i style={{width:m.score}} /></div>
+                </div>
+              </div>)}
+            </div>
           </div>
         </section>
 
@@ -195,17 +242,17 @@ export default function Home() {
 
         <section className={styles.section} aria-labelledby="picks-title">
           <div className={styles.picksHeading}><h2 id="picks-title" className={styles.title}>Picks built around your body.</h2><p className={styles.smallLabel}>Today’s menu</p></div>
-          <div className={styles.picksGrid}>{picks.map(p => <article key={p.name} className={styles.pick}><div className={styles.pickImage}><Image src={p.image} alt={p.name} fill sizes="(max-width: 700px) 50vw, 260px" /></div><div className={styles.pickCopy}><div><strong>{p.name}</strong><span>{p.score}</span></div><p>{p.tag}</p></div></article>)}</div>
+          <div className={`${styles.picksGrid} ${styles.swipePicks}`}>{picks.map(p => <article key={p.name} className={styles.pick}><div className={styles.pickImage}><Image src={p.image} alt={p.name} fill sizes="(max-width: 700px) 78vw, 260px" /></div><div className={styles.pickCopy}><div><strong>{p.name}</strong><span>{p.score}</span></div><p>{p.tag}</p></div></article>)}</div>
         </section>
 
         <section className={styles.section} aria-labelledby="reviews-title">
           <div className={styles.sectionHeading}><p className={styles.eyebrow}>Reviews</p><h2 id="reviews-title" className={styles.title}>Loved by people on the move.</h2></div>
-          <div className={styles.threeGrid}>{reviews.map(r => <article className={styles.review} key={r.name}><div className={styles.stars} aria-label="5 out of 5 stars">★★★★★</div><blockquote>“{r.quote}”</blockquote><div className={styles.reviewPerson}><div className={styles.stripe} aria-hidden="true" /><div><strong>{r.name}</strong><br /><span>{r.role}</span></div></div></article>)}</div>
+          <div className={`${styles.threeGrid} ${styles.reviewRail}`}>{reviews.map(r => <article className={styles.review} key={r.name}><div className={styles.stars} aria-label="5 out of 5 stars">★★★★★</div><blockquote>“{r.quote}”</blockquote><div className={styles.reviewPerson}><div className={styles.stripe} aria-hidden="true" /><div><strong>{r.name}</strong><br /><span>{r.role}</span></div></div></article>)}</div>
         </section>
 
         <section id="pricing" className={styles.section} aria-labelledby="pricing-title">
           <div className={styles.sectionHeading}><p className={styles.eyebrow}>Pricing</p><h2 id="pricing-title" className={styles.title}>Start free. Upgrade<br />when you travel more.</h2></div>
-          <div className={styles.threeGrid}>{plans.map(p => <article key={p.name} className={`${styles.plan} ${p.popular ? styles.popular : ""}`}>
+          <div className={`${styles.threeGrid} ${styles.swipeRail}`}>{plans.map(p => <article key={p.name} className={`${styles.plan} ${p.popular ? styles.popular : ""}`}>
             {p.popular && <div className={styles.popularBadge}>Most popular</div>}
             <h3 className={styles.planName}>{p.name}</h3><div className={styles.price}><strong>{p.price}</strong><span>/mo</span></div><p>{p.tag}</p>
             <ul>{p.features.map(f => <li key={f}><span aria-hidden="true">✓</span>{f}</li>)}</ul>
@@ -213,7 +260,14 @@ export default function Home() {
           </article>)}</div>
         </section>
 
-        <section className={`${styles.section} ${styles.cta}`} aria-labelledby="signup-title"><h2 id="signup-title" className={styles.title}>Create your account in seconds.</h2><p>Sign up with Google and start getting food that fits your body, your taste, and your day.</p><Link href="/login" className={`${styles.button} ${styles.outline}`}><GoogleG size={20} />Continue with Google</Link><small>Free to start · health data encrypted · never sold</small></section>
+        <UserCtaBanner />
+
+        <section className={styles.mobileClosingBanner} aria-labelledby="mobile-closing-title">
+          <p className={styles.eyebrow}>Your Mivan</p>
+          <h2 id="mobile-closing-title">Better choices,<br />ready when you are.</h2>
+          <p>One profile brings your taste, health and daily signals together wherever you eat.</p>
+          <Link href="/login" className={styles.mobileClosingAction}>Sign in to Mivan</Link>
+        </section>
       </main>
       <Footer />
     </div>

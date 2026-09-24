@@ -1,129 +1,128 @@
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { PublicNav } from "@/components/PublicNav";
 import { Footer } from "@/components/Footer";
-import { CTASection } from "@/components/CTASection";
-import { Section, Card } from "@/components/Section";
+import { blogPosts, getBlogPost, type BlogPost } from "../posts";
+import styles from "./post.module.css";
 
-const related = [
-  { cat: "Nutrition", title: "Low-sodium does not mean low-flavor", meta: "4 min read" },
-  { cat: "Product", title: "Introducing stress-aware recovery picks", meta: "3 min read" },
-  { cat: "Research", title: "What 3 million matched meals taught us", meta: "7 min read" },
-];
+const storyByCategory: Record<BlogPost["cat"], {
+  author: string;
+  role: string;
+  opening: string;
+  sections: { title: string; paragraphs: string[] }[];
+  quote: string;
+  takeaways: string[];
+}> = {
+  Research: {
+    author: "Dr. Lena Faris",
+    role: "Nutrition Science",
+    opening: "Food never reaches the body in isolation. Sleep, stress, movement and place change what feels satisfying and what supports recovery next.",
+    sections: [
+      { title: "Look beyond a single meal", paragraphs: ["The useful signal is rarely one ingredient or one perfect choice. It is the pattern around the meal: what happened before it, how the body responded, and whether energy stayed steady afterward.", "When we compare those moments over time, small relationships become clearer. They help turn broad advice into guidance that fits a real day."] },
+      { title: "Make the signal useful", paragraphs: ["Good guidance should reduce decision fatigue. It should explain why a choice fits, leave room for preference and make uncertainty visible instead of hiding it."] },
+    ],
+    quote: "The best recommendation is the one a person can understand, trust and use in the moment.",
+    takeaways: ["Patterns matter more than isolated numbers", "Context changes what the body needs", "Clear guidance beats more data"],
+  },
+  Nutrition: {
+    author: "Maya Rahimi",
+    role: "Registered Dietitian",
+    opening: "Nutrition becomes easier when the goal is a workable pattern instead of a perfect plate. Flavor, timing and portions can all adapt without losing the pleasure of eating.",
+    sections: [
+      { title: "Build from what already works", paragraphs: ["Start with familiar food and improve the balance around it. Protein, fibre and color make a strong base, while acidity, herbs and texture keep the result enjoyable.", "A useful adjustment should feel small enough to repeat. The best plan survives busy days, restaurant menus and travel."] },
+      { title: "Keep the choice flexible", paragraphs: ["Needs change across the day. Hunger, medication, activity and sleep can all shift the right portion or pairing, so rigid rules often create more noise than help."] },
+    ],
+    quote: "Healthy food only becomes useful when it still feels like food you want to eat.",
+    takeaways: ["Improve familiar meals first", "Use flavor as part of the solution", "Choose patterns you can repeat"],
+  },
+  Travel: {
+    author: "Nadia Chen",
+    role: "Travel & Food Editor",
+    opening: "A new city changes the menu, the schedule and the cues you normally rely on. A little structure makes room for discovery without turning every meal into a calculation.",
+    sections: [
+      { title: "Anchor the day", paragraphs: ["Keep one or two parts of your routine familiar: breakfast timing, hydration or a reliable snack. Those anchors make the rest of the day easier to explore.", "Read menus for cooking method and balance before focusing on a single ingredient. Grilled, roasted, broth-based and vegetable-forward choices often give you a useful starting point."] },
+      { title: "Leave room for the place", paragraphs: ["Local food is part of travel. Share richer dishes, add something fresh and let the next meal rebalance the day rather than treating one choice as a failure."] },
+    ],
+    quote: "Confidence comes from a few reliable cues, not from knowing every dish before you arrive.",
+    takeaways: ["Keep one daily anchor", "Read preparation before ingredients", "Balance the day, not every bite"],
+  },
+  Product: {
+    author: "Arman Valeh",
+    role: "Mivan Product",
+    opening: "A personal food product should make a complicated moment feel calm. That means combining signals carefully and showing only the part that helps someone choose.",
+    sections: [
+      { title: "From signal to decision", paragraphs: ["A menu photo, a saved preference and an optional wearable signal all describe different parts of the same moment. The product connects them without asking the user to interpret raw data.", "The result is a short ranking with a clear reason. People can still explore the menu, but they begin with a useful point of view."] },
+      { title: "Design for trust", paragraphs: ["Personalization works only when people stay in control. Every signal should be optional, understandable and easy to change as needs evolve."] },
+    ],
+    quote: "The interface should carry the complexity so the person can focus on the choice.",
+    takeaways: ["Explain every recommendation", "Keep health context optional", "Design for changing preferences"],
+  },
+};
 
-export default function BlogPostPage() {
-  return (
-    <>
-      <PublicNav />
-      <main>
-        <Section>
-          <Link href="/blog" className="text-accent-text text-[12px] font-semibold">
-            ← The Mivan Journal
-          </Link>
-          <div className="mt-5 max-w-2xl">
-            <div className="flex gap-2 text-[10px] font-bold uppercase tracking-wide text-accent-text mb-3">
-              <span>Research</span>
-              <span>·</span>
-              <span>Featured</span>
-            </div>
-            <h1 className="font-display font-extrabold text-[clamp(24px,4vw,34px)] tracking-[-0.03em] mb-3">
-              How stress quietly changes what your body needs
-            </h1>
-            <p className="text-body-text text-[14px] leading-relaxed mb-5">
-              We dug into the science of stress, cortisol and cravings — and what it
-              actually means for the meals that help you recover.
-            </p>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="btn-gradient w-9 h-9 rounded-full text-white font-bold flex items-center justify-center text-[13px]">
-                L
-              </div>
-              <div>
-                <div className="text-[12px] font-bold">Dr. Lena Faris</div>
-                <div className="text-muted text-[11px]">Head of Nutrition Science · Mivan</div>
-              </div>
-              <div className="text-muted-2 text-[11px] ml-auto">June 12, 2026 · 8 min read</div>
-            </div>
-          </div>
-        </Section>
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getBlogPost(slug);
+  if (!post) notFound();
+  const story = storyByCategory[post.cat];
+  const articleNumber = String(blogPosts.findIndex(item => item.slug === post.slug) + 1).padStart(2, "0");
+  const related = blogPosts.filter(item => item.slug !== post.slug && item.cat === post.cat).slice(0, 3);
+  const fallbackRelated = related.length >= 3 ? related : [...related, ...blogPosts.filter(item => item.slug !== post.slug && item.cat !== post.cat)].slice(0, 3);
 
-        <Section className="max-w-2xl">
-          <div className="relative h-72 mb-6 overflow-hidden rounded-[28px] border border-border-card">
-            <Image src="/images/blog-stress-cortisol-cravings.webp" alt="A recovery meal beside a smartwatch showing an elevated health signal" fill sizes="672px" className="object-cover" priority />
+  return <>
+    <PublicNav />
+    <main className={styles.page}>
+      <article className={styles.article}>
+        <header className={styles.hero}>
+          <Link href="/blog" className={styles.back}>Back to the journal</Link>
+          <div className={styles.heroMeta}><span>{post.cat}</span><i /> <span>{post.meta}</span></div>
+          <h1>{post.title}</h1>
+          <p>{post.excerpt}</p>
+          <div className={styles.byline}>
+            <span className={styles.authorMark}>{story.author.charAt(0)}</span>
+            <span><strong>{story.author}</strong><small>{story.role}</small></span>
           </div>
-          <div className="prose text-[13.5px] leading-relaxed text-body-text space-y-4">
-            <p>
-              When we talk about eating well, we usually talk about food in isolation —
-              calories, macros, ingredients. But your body never eats in isolation. The
-              same plate lands differently on a calm Sunday than on a deadline-soaked
-              Tuesday, and the difference comes down to one quiet variable: stress.
-            </p>
-            <p>
-              Over the last year, our research team looked at how physiological stress
-              signals — heart rate, HRV, sleep debt — line up with the meals people
-              actually reach for, and which of those meals leave them feeling better
-              afterward.
-            </p>
-            <h2 className="font-display font-extrabold text-[17px] tracking-[-0.02em] text-ink pt-2">
-              The cortisol-craving loop
-            </h2>
-            <p>
-              When stress rises, your body releases cortisol to keep you alert. Helpful in
-              short bursts — but sustained cortisol nudges you toward fast energy: salt,
-              sugar, and refined carbs. It is not a lack of willpower. It is biology asking
-              for a shortcut.
-            </p>
-            <p>
-              The problem is that those shortcuts spike and crash, which raises stress
-              again. The loop tightens. Breaking it is less about restriction and more
-              about giving the body what it is actually short on.
-            </p>
-            <Card className="bg-[#f4ede2] border-0 text-[14px] font-semibold text-ink italic">
-              &ldquo;On high-stress days, people who ate magnesium- and protein-rich meals
-              reported 31% better recovery the next morning.&rdquo;
-            </Card>
-            <h2 className="font-display font-extrabold text-[17px] tracking-[-0.02em] text-ink pt-2">
-              What actually helps
-            </h2>
-            <p>Three patterns showed up again and again in the data:</p>
-            <ul className="list-disc pl-5 space-y-2">
-              <li><strong>Steady protein.</strong> It blunts the spike-and-crash cycle and keeps you fuller, longer.</li>
-              <li><strong>Magnesium-rich greens and nuts.</strong> Linked to calmer evenings and deeper sleep.</li>
-              <li><strong>Earlier, lighter dinners.</strong> Recovery starts the night before, not the morning after.</li>
-            </ul>
-            <p>
-              None of this requires a new diet. It requires the right plate at the right
-              moment — which is exactly the signal your smartwatch already carries. That is
-              the idea behind Mivan&rsquo;s stress-aware recovery picks: meals chosen for
-              the body you have today, not the body you had yesterday.
-            </p>
-          </div>
-          <div className="flex gap-2 mt-6 text-[11px] font-semibold text-label">
-            <span className="px-3 py-1 rounded-full bg-[#f4ede2]">Stress</span>
-            <span className="px-3 py-1 rounded-full bg-[#f4ede2]">Recovery</span>
-            <span className="px-3 py-1 rounded-full bg-[#f4ede2]">Nutrition science</span>
-          </div>
-        </Section>
+        </header>
 
-        <Section className="text-center">
-          <div className="text-label text-[11px] font-bold uppercase tracking-wide mb-4">
-            Keep reading
-          </div>
-          <div className="grid md:grid-cols-3 gap-5 text-left">
-            {related.map((r) => (
-              <Card key={r.title}>
-                <div className="text-accent-text text-[10px] font-bold uppercase tracking-wide mb-1.5">
-                  {r.cat}
-                </div>
-                <div className="font-bold text-[13px] mb-1.5 leading-snug">{r.title}</div>
-                <div className="text-muted-2 text-[11px]">{r.meta}</div>
-              </Card>
-            ))}
-          </div>
-        </Section>
+        <figure className={styles.cover}>
+          <Image src={post.image} alt="" fill sizes="(max-width: 760px) 100vw, 1180px" priority />
+          <figcaption><span>{articleNumber}</span><p>{post.cat} · Mivan Journal</p></figcaption>
+        </figure>
 
-        <CTASection />
-      </main>
-      <Footer />
-    </>
-  );
+        <div className={styles.storyGrid}>
+          <aside className={styles.storyRail} aria-label="Article information">
+            <p>READING NOTE</p>
+            <strong>{post.meta.split(" · ")[0]}</strong>
+            <span>Clear guidance for real food decisions.</span>
+            <Link href="/blog">All stories</Link>
+          </aside>
+
+          <div className={styles.storyBody}>
+            <p className={styles.lead}>{story.opening}</p>
+            {story.sections.map(section => <section key={section.title}>
+              <h2>{section.title}</h2>
+              {section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+            </section>)}
+
+            <blockquote><span>“</span>{story.quote}</blockquote>
+
+            <section className={styles.takeaways} aria-labelledby="takeaways-title">
+              <p>KEEP WITH YOU</p>
+              <h2 id="takeaways-title">Three useful ideas</h2>
+              <ol>{story.takeaways.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>)}</ol>
+            </section>
+          </div>
+        </div>
+      </article>
+
+      <section className={styles.related} aria-labelledby="related-title">
+        <div className={styles.relatedHeading}><div><p>KEEP READING</p><h2 id="related-title">More from the journal</h2></div><Link href="/blog">View all</Link></div>
+        <div className={styles.relatedRail}>{fallbackRelated.map(item => <Link href={`/blog/${item.slug}`} key={item.slug} className={styles.relatedCard}>
+          <div className={styles.relatedImage}><Image src={item.image} alt="" fill sizes="(max-width: 760px) 78vw, 360px" /></div>
+          <div><p>{item.cat}</p><h3>{item.title}</h3><span>{item.meta}</span></div>
+        </Link>)}</div>
+      </section>
+    </main>
+    <Footer variant="app" />
+  </>;
 }

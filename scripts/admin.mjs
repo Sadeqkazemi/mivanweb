@@ -66,7 +66,7 @@ try {
   const user = await db.$transaction(async (transaction) => {
     const updated = await transaction.user.update({
       where: { email },
-      data: { role: 'admin' },
+      data: { role: 'admin', twoFactorEnabled: true },
       select: { id: true, email: true },
     });
     const credential = await transaction.account.findFirst({
@@ -89,7 +89,7 @@ try {
     await transaction.session.deleteMany({ where: { userId: updated.id } });
     return updated;
   });
-  console.log(`Admin password and access updated for ${user.email}. Existing sessions were revoked; sign in again.`);
+  console.log(`Admin password, access, and email OTP protection updated for ${user.email}. Existing sessions were revoked; sign in again.`);
 } finally {
   await db.$disconnect();
 }
